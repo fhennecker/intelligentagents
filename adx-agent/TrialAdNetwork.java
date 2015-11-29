@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -51,7 +49,7 @@ import java.sql.*;
  * Test plug-in
  * 
  */
-public class TrialAdNetwork extends Agent {
+public class myAgent0 extends Agent {
 
 	private ArrayList<ArrayList<Integer>> campTrack= new ArrayList<ArrayList<Integer>>();
 	private int popData[][][]= new int[][][]{{{1836,1980},{1795,2401}},{{517,256},{808,407}}}; //income,age,gender
@@ -66,7 +64,7 @@ public class TrialAdNetwork extends Agent {
 	//{46.0,80.0,49.6,26.0,16.0}; //
 	
 	private final Logger log = Logger
-			.getLogger(TrialAdNetwork.class.getName());
+			.getLogger(myAgent0.class.getName());
 
 	/*
 	 * Basic simulation information. An agent should receive the {@link
@@ -136,7 +134,7 @@ public class TrialAdNetwork extends Agent {
 	private CampaignData currCampaign;
 
 	File ucsLog;
-	public TrialAdNetwork() {
+	public myAgent0() {
 		campaignReports = new LinkedList<CampaignReport>();
 	}
 
@@ -259,6 +257,8 @@ public class TrialAdNetwork extends Agent {
 	 * (on day n) related bids (attempting to win the campaign). The allocation
 	 * (the winner) is announced to the competing agents during day n + 1.
 	 */
+	double cmpFactor = 1.2;
+	long cmpBidMillis;
 	private void handleICampaignOpportunityMessage(
 			CampaignOpportunityMessage com) {
 
@@ -286,10 +286,39 @@ public class TrialAdNetwork extends Agent {
 		}
 		
 		Random random = new Random();
+		double Gre = 1.2;
+
+                        
 		long cmpimps = com.getReachImps();
-		long cmpBidMillis = (long)((cmpimps*0.1)*(2-(population/10000)));
+
+		if( pendingCampaign.id == adNetworkDailyNotification.getCampaignId() && adNetworkDailyNotification.getCostMillis() == pendingCampaign.budget){
+			cmpFactor = cmpFactor;
+		}else if( pendingCampaign.id == adNetworkDailyNotification.getCampaignId() && adNetworkDailyNotification.getCostMillis() != pendingCampaign.budget){
+			cmpFactor = cmpFactor/Gre;
+		}else {
+			cmpFactor = cmpFactor*Gre;
+		}
+
+		//long cmpBidMillis = (long)((cmpimps*0.1)*(2-(population/10000)));
+		//long cmpBidMillis = (long)(avgPrice*cmpimps*cmpFactor);
+		double ucsLevel = adNetworkDailyNotification.getServiceLevel();
+
+		if(ucsLevel <= 0.9){
+			 cmpBidMillis = (long)(cmpimps*0.1);
+			System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		}else{
+		            cmpBidMillis = (long)(cmpimps*cmpFactor);
+			System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		}                                                                                                                                         //I need to add some thing here about the conditions that I don't want to bid: reach impressions are too high, and overlapping thing.
+
+
+
+
+
+
+
 		
-		System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 
 		File ucsLog= new File("ucsLog.txt");
         FileWriter fileWriter;// = new FileWriter(ucsLog,true);
@@ -332,7 +361,7 @@ public class TrialAdNetwork extends Agent {
 				return;
 	        }*/
 			
-			double ucsLevel = adNetworkDailyNotification.getServiceLevel();
+			//double ucsLevel = adNetworkDailyNotification.getServiceLevel();
 			ucsBid=getUCSBid(ucsLevel,lastUCS);
 			lastUCS=ucsBid;
 			//ucsBid = 0.1 + random.nextDouble()/10.0;			
@@ -618,7 +647,8 @@ public class TrialAdNetwork extends Agent {
 						 * uniform probability over active campaigns(irrelevant because we are bidding only on one campaign)
 						 */
 						double factor= publisherStats.get(query.getPublisher())[3]/totalPop;
-						double rbid = 10000.0*2*(0.5+factor);
+						//double rbid = 10000.0*2*(0.5+factor);
+						double rbid = 20000.0;
 						totalPrice=totalPrice+factor*rbid;
 						totalFactor=totalFactor+factor;
 						System.out.print("########");
