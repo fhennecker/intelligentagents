@@ -1,0 +1,110 @@
+Summary for /www/javadecompilers/app/public/data/29.11.15/3ae581862a38be4cf7007bca717da3f3/agent00.jar
+Decompiled with CFR 0_110
+
+
+org.apache.commons.lang3.text.ExtendedMessageFormat
+----------------------------
+
+readArgumentIndex(java.lang.String java.text.ParsePosition )
+  Unable to fully structure code
+
+
+com.sun.jna.Function
+----------------------------
+
+invoke(java.lang.Object[] java.lang.Class boolean )
+  Unable to fully structure code
+
+
+com.sun.jna.Pointer
+----------------------------
+
+setValue(long java.lang.Object java.lang.Class )
+  Unable to fully structure code
+
+
+com.sun.jna.Structure
+----------------------------
+
+readField(com.sun.jna.Structure$StructField )
+  Unable to fully structure code
+writeField(com.sun.jna.Structure$StructField )
+  Unable to fully structure code
+getNativeAlignment(java.lang.Class java.lang.Object boolean )
+  Unable to fully structure code
+get(java.lang.Object java.lang.Class )
+  Unable to fully structure code
+
+
+lombok.eclipse.handlers.EclipseHandlerUtil
+----------------------------
+
+createFieldAccessor(lombok.eclipse.EclipseNode lombok.eclipse.handlers.EclipseHandlerUtil$FieldAccess org.eclipse.jdt.internal.compiler.ast.ASTNode )
+  Unable to fully structure code
+
+
+lombok.libs.org.objectweb.asm.ClassReader
+----------------------------
+
+accept(lombok.libs.org.objectweb.asm.ClassVisitor lombok.libs.org.objectweb.asm.Attribute[] int )
+  Unable to fully structure code
+
+
+lombok.patcher.MethodLogistics
+----------------------------
+
+generateDupForType(java.lang.String lombok.libs.org.objectweb.asm.MethodVisitor )
+  Unable to fully structure code
+
+
+com.botbox.util.ArrayQueue
+----------------------------
+
+indexOf(java.lang.Object int )
+  Unable to fully structure code
+
+
+se.sics.isl.inet.InetConnection
+----------------------------
+
+run()
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Started 2 blocks at once
+run()
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Started 2 blocks at once
+
+
+se.sics.isl.inet.InetServer
+----------------------------
+
+run()
+  Unable to fully structure code
+
+
+se.sics.isl.tact.TACTConnection
+----------------------------
+
+run()
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Started 2 blocks at once
+
+
+se.sics.tasim.is.common.ComingPage
+----------------------------
+
+handle(java.lang.String java.lang.String org.mortbay.http.HttpRequest org.mortbay.http.HttpResponse )
+  Unable to fully structure code
+
+
+se.sics.tasim.is.common.HistoryPage
+----------------------------
+
+readPage(java.lang.StringBuffer int )
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Tried to end blocks [0[TRYBLOCK]], but top level block is 9[CATCHBLOCK]
+readResultPage(java.lang.StringBuffer int )
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Tried to end blocks [0[TRYBLOCK]], but top level block is 9[CATCHBLOCK]
+
+
+se.sics.tasim.viewer.applet.AppletConnection
+----------------------------
+
+run()
+  Exception : org.benf.cfr.reader.util.ConfusedCFRException: Started 2 blocks at once
