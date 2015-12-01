@@ -1,3 +1,4 @@
 /infodb
 lib/*.jar
 logs/
+ucsLog.txt
