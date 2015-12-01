@@ -243,7 +243,7 @@ public class World {
         return seg;
     }
 
-    public int getPop(Boolean age, Boolean gender, Boolean income){
+    public int getPopulationForSegment(Boolean age, Boolean gender, Boolean income){
         int pop=0;
         if (age!=null){
             if (gender!=null){
@@ -330,4 +330,8 @@ public class World {
         return retSeg;
     }
 
+    public int getTargetedPopulation(CampaignData camp){
+        Boolean mktSeg[]= splitSegment(camp.targetSegment);
+        return (getPopulationForSegment(mktSeg[0],mktSeg[1],mktSeg[2]));
+    }
 }
