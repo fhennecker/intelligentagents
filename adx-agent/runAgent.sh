@@ -8,7 +8,7 @@ TACAA_HOME=`pwd`
 echo $TACAA_HOME
 echo $CLASSPATH
 
-javac -cp lib/adx-1.2.8.jar TrialAdNetwork.java
+javac -cp lib/adx-1.3.0.jar TrialAdNetwork.java
 jar cf TrialAdNetwork.jar TrialAdNetwork.class TrialAdNetwork\$CampaignData.class
 mv TrialAdNetwork.jar lib/
 rm TrialAdNetwork.class TrialAdNetwork\$CampaignData.class
