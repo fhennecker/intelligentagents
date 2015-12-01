@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,12 +51,12 @@ import java.sql.*;
  * Test plug-in
  * 
  */
-public class myAgent0 extends Agent {
+public class TrialAdNetwork extends Agent {
 
 	private ArrayList<ArrayList<Integer>> campTrack= new ArrayList<ArrayList<Integer>>();
 	private int popData[][][]= new int[][][]{{{1836,1980},{1795,2401}},{{517,256},{808,407}}}; //income,age,gender
 	private HashMap<String, Double[]> publisherStats = new HashMap<String, Double[]>();
-	private HashMap<Set<MarketSegment>, Integer> mktSegs = new HashMap<Set<MarketSegment>, Integer>();
+	//private HashMap<Set<MarketSegment>, Integer> mktSegs = new HashMap<Set<MarketSegment>, Integer>();
 	private double totalPop;
 	private double lastUCS=0.2;
 	private double avgPrice;
@@ -64,7 +66,7 @@ public class myAgent0 extends Agent {
 	//{46.0,80.0,49.6,26.0,16.0}; //
 	
 	private final Logger log = Logger
-			.getLogger(myAgent0.class.getName());
+			.getLogger(TrialAdNetwork.class.getName());
 
 	/*
 	 * Basic simulation information. An agent should receive the {@link
@@ -134,7 +136,7 @@ public class myAgent0 extends Agent {
 	private CampaignData currCampaign;
 
 	File ucsLog;
-	public myAgent0() {
+	public TrialAdNetwork() {
 		campaignReports = new LinkedList<CampaignReport>();
 	}
 
@@ -246,9 +248,6 @@ public class myAgent0 extends Agent {
 		for (int i= (int)currCampaign.dayStart; i<= (int)currCampaign.dayEnd; i++){
 			campTrack.get(i).add(currCampaign.id);
 		}
-		
-	
-		
 	}
 
 	/**
@@ -266,9 +265,6 @@ public class myAgent0 extends Agent {
 
 		pendingCampaign = new CampaignData(com);
 		System.out.println("Day " + day + ": Campaign opportunity - " + pendingCampaign);
-		
-		//Boolean mktSeg[]= splitSegment(pendingCampaign.targetSegment);
-		//System.out.println(getPop(mktSeg[0],mktSeg[1],mktSeg[2]));
 		int population=getPop(pendingCampaign);
 		System.out.println(population);
 		/*
@@ -279,13 +275,15 @@ public class myAgent0 extends Agent {
 		 * therefore the total number of impressions may be treated as a reserve
 		 * (upper bound) price for the auction.
 		 */
-        
-		if(!mktSegs.containsKey(pendingCampaign.targetSegment)){
-			System.out.println("Market Segment Not handled before.");
-			mktSegs.put(pendingCampaign.targetSegment, 0);
-		}
 		
-		Random random = new Random();
+		boolean shouldBid=shouldBid(pendingCampaign);
+		//-------------Leela Campaign Bid--------------
+		long cmpimps = com.getReachImps();
+		long cmpBidMillis= (long)((cmpimps*0.1)*(2-(population/10000))*adNetworkDailyNotification.getQualityScore());
+		System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		//-------------Leela Campaign Bid--------------
+		//-------------Anne Campaign Bid---------------
+		/*Random random = new Random();
 		double Gre = 1.2;
 
                         
@@ -309,17 +307,9 @@ public class myAgent0 extends Agent {
 		}else{
 		            cmpBidMillis = (long)(cmpimps*cmpFactor);
 			System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
-		}                                                                                                                                         //I need to add some thing here about the conditions that I don't want to bid: reach impressions are too high, and overlapping thing.
-
-
-
-
-
-
-
+		}  */
+		//-------------Anne Campaign Bid---------------
 		
-		//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
-
 		File ucsLog= new File("ucsLog.txt");
         FileWriter fileWriter;// = new FileWriter(ucsLog,true);
         BufferedWriter bufferedWriter; // = new BufferedWriter(fileWriter);
@@ -327,10 +317,10 @@ public class myAgent0 extends Agent {
         	fileWriter = new FileWriter(ucsLog,true);
        
         	bufferedWriter = new BufferedWriter(fileWriter);
-       }catch (IOException e) {
+        }catch (IOException e) {
     	   this.log.log(Level.SEVERE,"Exception thrown while trying to parse message." + e);
     	   return;
-       }
+        }
         
 		/*
 		 * Adjust bid s.t. target level is achieved. Note: The bid for the
@@ -361,24 +351,119 @@ public class myAgent0 extends Agent {
 				return;
 	        }*/
 			
-			//double ucsLevel = adNetworkDailyNotification.getServiceLevel();
+			double ucsLevel = adNetworkDailyNotification.getServiceLevel();
 			ucsBid=getUCSBid(ucsLevel,lastUCS);
 			lastUCS=ucsBid;
+			//ucsBid=0.2;
 			//ucsBid = 0.1 + random.nextDouble()/10.0;			
 			System.out.println("Day " + day + ": ucs level reported: " + ucsLevel);
 		} else {
 			System.out.println("Day " + day + ": Initial ucs bid is " + ucsBid);
 		}
-		//System.out.print("Market Segment ");
-		//System.out.print(pendingCampaign.targetSegment);
 		/* Note: Campaign bid is in millis */
-		AdNetBidMessage bids = new AdNetBidMessage(ucsBid, pendingCampaign.id, cmpBidMillis);
+		AdNetBidMessage bids;
+		/*if(shouldBid){
+			bids = new AdNetBidMessage(ucsBid, pendingCampaign.id, cmpBidMillis);
+		}
+		else{
+			bids = new AdNetBidMessage(0.1, pendingCampaign.id, cmpimps);
+			System.out.println("DID NOT BID! OVERLAP!!");
+		}*/
+		//cmpBidMillis=(long)(cmpimps*0.1);
+		bids = new AdNetBidMessage(ucsBid, pendingCampaign.id, cmpBidMillis);
 		sendMessage(demandAgentAddress, bids);
 	}
 	
+	private boolean shouldBid(CampaignData pendingCampaign){
+		boolean shouldBid=true;
+		for (int i=(int) pendingCampaign.dayStart; i<=(int)pendingCampaign.dayEnd; i++){
+			for (int j=0; j<campTrack.get(i).size(); j++){
+				CampaignData camp= myCampaigns.get(campTrack.get(i).get(j));
+				/*if (pendingCampaign.targetSegment.containsAll(camp.targetSegment)){ //camp superset of pendingCamp
+					overlap++;
+				}
+				else if (camp.targetSegment.containsAll(pendingCampaign.targetSegment)){ //pendingCamp superset of camp
+					overlap=overlap+0.5;
+				}
+				else if ()
+				if(overlap>=2){
+					return false;
+				}*/
+				Set<String> newCamp= expandSeg(pendingCampaign.targetSegment);
+				Set<String> oldCamp= expandSeg(camp.targetSegment);
+				newCamp.retainAll(oldCamp);
+				if(newCamp.size()>2)
+					return false;
+			}
+		}
+		
+		return shouldBid;
+	}
+	
+	private Set<String> expandSeg(Set<MarketSegment> mktSeg){
+		Set<String> seg= new HashSet<String>();
+		seg.add("FYL");
+		seg.add("FYH");
+		seg.add("FOL");
+		seg.add("FOH");
+		seg.add("MYL");
+		seg.add("MYH");
+		seg.add("MOL");
+		seg.add("MOH");
+		Boolean[] a1=splitSegment(mktSeg);	
+		Boolean age=a1[0];
+		Boolean gender=a1[1];
+		Boolean income=a1[2];
+		if(age!=null){
+			if(age){ //age-old... remove all young
+				seg.remove("FYL");
+				seg.remove("MYL");
+				seg.remove("FYH");
+				seg.remove("MYH");
+			}
+			else if(!age){ //age-young... remove all old
+				seg.remove("FOL");
+				seg.remove("MOL");
+				seg.remove("FOH");
+				seg.remove("MOH");
+			
+			}
+		}
+		if(gender!=null){
+			if(gender){ //gender-female... remove all male
+				if(seg.contains("FYL")){seg.remove("FYL");}
+				if(seg.contains("FOL")){seg.remove("FOL");}
+				if(seg.contains("FYH")){seg.remove("FYH");}
+				if(seg.contains("FOH")){seg.remove("FOH");}
+			}
+			else if(!gender){ //gender-male... remove all female
+				if(seg.contains("MYL")){seg.remove("MYL");}
+				if(seg.contains("MOL")){seg.remove("MOL");}
+				if(seg.contains("MYH")){seg.remove("MYH");}
+				if(seg.contains("MOH")){seg.remove("MOH");}
+			
+			}
+		}
+		if(income!=null){
+			if(income){ //income-high... remove all low
+				if(seg.contains("MYL")){seg.remove("MYL");}
+				if(seg.contains("MOL")){seg.remove("MOL");}
+				if(seg.contains("FYL")){seg.remove("FYL");}
+				if(seg.contains("FOL")){seg.remove("FOL");}
+			}
+			else if(!income){ //income-low... remove all high
+				
+				if(seg.contains("MYH")){seg.remove("MYH");}
+				if(seg.contains("MOH")){seg.remove("MOH");}
+				if(seg.contains("FYH")){seg.remove("FYH");}
+				if(seg.contains("FOH")){seg.remove("FOH");}
+			}
+			
+		}
+		return seg;
+	}
+	
 	private double getUCSBid(double ucsLevel, double ucsBid){
-		//I/P: previous bid price, received UCS level
-		//O/P: today's bid price
 		double ro=0.75*dailyReach(day);
 		double gucs=0.75;
 		if (ucsLevel>0.9){
@@ -468,27 +553,21 @@ public class myAgent0 extends Agent {
 		for (int i=0; i<seg.toArray().length; i++){
 			String element=seg.toArray()[i].toString();
 			if(element.equals("FEMALE")){
-				System.out.println("Segment Female");
 				retSeg[1]=true;
 			}
 			else if(element.equals("MALE")){
-				System.out.println("Segment Male");
 				retSeg[1]=false;
 			}
 			if(element.equals("YOUNG")){
-				System.out.println("Segment Young");
 				retSeg[0]=false;
 			}
 			else if(element.equals("OLD")){
-				System.out.println("Segment Old");
 				retSeg[0]=true;
 			}
 			if(element.equals("LOW_INCOME")){
-				System.out.println("Segment Low Income");
 				retSeg[2]=false;
 			}
 			else if(element.equals("HIGH_INCOME")){
-				System.out.println("Segment High Income");
 				retSeg[2]=true;
 			}
 		}
@@ -628,7 +707,6 @@ public class myAgent0 extends Agent {
 		 * matching target segment.
 		 */
 		//prevDay= new ArrayList<CampaignData>();
-		//double avgPrice=0.0;
 		double totalPrice=0.0;
 		double totalFactor=0.0;
 		for (int i=0; i<campTrack.get(dayBiddingFor).size(); i++){
@@ -647,15 +725,28 @@ public class myAgent0 extends Agent {
 						 * uniform probability over active campaigns(irrelevant because we are bidding only on one campaign)
 						 */
 						double factor= publisherStats.get(query.getPublisher())[3]/totalPop;
-						//double rbid = 10000.0*2*(0.5+factor);
-						double rbid = 20000.0;
+						//double rbid = 1000.0*(0.5+factor);
+						//double rbid= 10000.0; //EXTREME!!! or 20000.0
+						//double rbid = publisherStats.values().//.*2*(0.5+factor); //What's this? :/
+						
+						double devFactor=1.0;
+						double adTypeFactor = 1.0;
+						if (query.getAdType() == AdType.text) {
+							adTypeFactor=1;
+						}
+						else if (query.getAdType() == AdType.video) {
+							adTypeFactor=currCampaign.videoCoef;
+						}
+						if (query.getDevice() == Device.pc) {
+							adTypeFactor=1;
+						}
+						else if (query.getDevice() == Device.mobile) {
+							adTypeFactor=currCampaign.videoCoef;
+						}
+						//= currCampaign.videoCoef;
+						double rbid = 500.0+800.0*factor+100.0*devFactor+100.0*adTypeFactor;
 						totalPrice=totalPrice+factor*rbid;
 						totalFactor=totalFactor+factor;
-						System.out.print("########");
-						System.out.print(factor);
-						System.out.print("########");
-						System.out.print(rbid);
-						System.out.println("########");
 						if (query.getDevice() == Device.pc) {
 							if (query.getAdType() == AdType.text) {
 								entCount++;
@@ -672,11 +763,15 @@ public class myAgent0 extends Agent {
 						}
 						bidBundle.addQuery(query, rbid, new Ad(null),
 								currCampaign.id, 1);
+						//bidBundle.
 					}
 				}
 
 				double impressionLimit = currCampaign.impsTogo();
 				double budgetLimit = currCampaign.budget;
+				System.out.print("############");
+				System.out.print(budgetLimit);
+				System.out.println("############");
 				bidBundle.setCampaignDailyLimit(currCampaign.id,
 						(int) impressionLimit, budgetLimit);
 
