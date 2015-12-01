@@ -2,3 +2,4 @@
 lib/*.jar
 logs/
 ucsLog.txt
+*.class

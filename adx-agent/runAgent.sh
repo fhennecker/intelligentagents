@@ -8,8 +8,9 @@ TACAA_HOME=`pwd`
 echo $TACAA_HOME
 echo $CLASSPATH
 
-javac -cp lib/adx-1.3.0.jar Agent.java
-jar cf Agent.jar Agent.class Agent\$CampaignData.class
-mv Agent.jar lib/
-rm Agent.class Agent\$CampaignData.class
-java -cp "lib/*" tau.tac.adx.agentware.Main -config config/aw-1.conf
+javac -cp lib/adx-1.3.0.jar helpers/*.java
+javac -cp lib/adx-1.3.0.jar:.:helpers AdNetwork.java
+jar cf AdNetwork.jar AdNetwork.class AdNetwork\$CampaignData.class helpers/*.class
+mv AdNetwork.jar lib/
+rm AdNetwork.class AdNetwork\$CampaignData.class
+java -cp "lib/*:helpers" tau.tac.adx.agentware.Main -config config/aw-1.conf

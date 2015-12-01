@@ -45,19 +45,20 @@ import edu.umich.eecs.tac.props.Ad;
 import edu.umich.eecs.tac.props.BankStatus;
 import java.sql.*;
 
+import helpers.World;
+
+
 /**
  * 
  * @author Mariano Schain
  * Test plug-in
  * 
  */
-public class TrialAdNetwork extends Agent {
+public class AdNetwork extends Agent {
 
+	private World w;
 	private ArrayList<ArrayList<Integer>> campTrack= new ArrayList<ArrayList<Integer>>();
-	private int popData[][][]= new int[][][]{{{1836,1980},{1795,2401}},{{517,256},{808,407}}}; //income,age,gender
-	private HashMap<String, Double[]> publisherStats = new HashMap<String, Double[]>();
 	//private HashMap<Set<MarketSegment>, Integer> mktSegs = new HashMap<Set<MarketSegment>, Integer>();
-	private double totalPop;
 	private double lastUCS=0.2;
 	private double avgPrice;
 	//private ArrayList<CampaignData> prevDay= new ArrayList<CampaignData>();
@@ -66,7 +67,7 @@ public class TrialAdNetwork extends Agent {
 	//{46.0,80.0,49.6,26.0,16.0}; //
 	
 	private final Logger log = Logger
-			.getLogger(TrialAdNetwork.class.getName());
+			.getLogger(AdNetwork.class.getName());
 
 	/*
 	 * Basic simulation information. An agent should receive the {@link
@@ -85,7 +86,7 @@ public class TrialAdNetwork extends Agent {
 	 * {@link AdNetworkDailyNotification}.
 	 */
 	private final Queue<CampaignReport> campaignReports;
-	private PublisherCatalog publisherCatalog;
+	
 	private InitialCampaignMessage initialCampaignMessage;
 	private AdNetworkDailyNotification adNetworkDailyNotification;
 
@@ -96,11 +97,7 @@ public class TrialAdNetwork extends Agent {
 	private String demandAgentAddress;
 	private String adxAgentAddress;
 
-	/*
-	 * we maintain a list of queries - each characterized by the web site (the
-	 * publisher), the device type, the ad type, and the user market segment
-	 */
-	private AdxQuery[] queries;
+	
 
 	/**
 	 * Information regarding the latest campaign opportunity announced
@@ -128,15 +125,13 @@ public class TrialAdNetwork extends Agent {
 	 */
 	double ucsTargetLevel;
 
-	/*
-	 * current day of simulation
-	 */
-	private int day;
-	private String[] publisherNames;
+
 	private CampaignData currCampaign;
 
 	File ucsLog;
-	public TrialAdNetwork() {
+	public AdNetwork() {
+		w = new World();
+		w.initPublishers();
 		campaignReports = new LinkedList<CampaignReport>();
 	}
 
@@ -160,7 +155,7 @@ public class TrialAdNetwork extends Agent {
 			} else if (content instanceof SimulationStatus) {
 				handleSimulationStatus((SimulationStatus) content);
 			} else if (content instanceof PublisherCatalog) {
-				handlePublisherCatalog((PublisherCatalog) content);
+				w.handlePublisherCatalog((PublisherCatalog) content);
 			} else if (content instanceof AdNetworkReport) {
 				handleAdNetworkReport((AdNetworkReport) content);
 			} else if (content instanceof StartInfo) {
@@ -186,7 +181,7 @@ public class TrialAdNetwork extends Agent {
 	}
 
 	private void handleBankStatus(BankStatus content) {
-		System.out.println("Day " + day + " :" + content.toString());
+		System.out.println("Day " + w.day + " :" + content.toString());
 	}
 
 	/**
@@ -199,17 +194,7 @@ public class TrialAdNetwork extends Agent {
 		this.startInfo = startInfo;
 	}
 
-	/**
-	 * Process the reported set of publishers
-	 * 
-	 * @param publisherCatalog
-	 */
-	private void handlePublisherCatalog(PublisherCatalog publisherCatalog) {
-		this.publisherCatalog = publisherCatalog;
-		generateAdxQuerySpace();
-		getPublishersNames();
-
-	}
+	
 
 	/**
 	 * On day 0, a campaign (the "initial campaign") is allocated to each
@@ -222,25 +207,27 @@ public class TrialAdNetwork extends Agent {
 			InitialCampaignMessage campaignMessage) {
 		System.out.println(campaignMessage.toString());
 
-		day = 0;
+		w.day = 0;
 
 		initialCampaignMessage = campaignMessage;
 		demandAgentAddress = campaignMessage.getDemandAgentAddress();
 		adxAgentAddress = campaignMessage.getAdxAgentAddress();
 
-		initPublishers();
+		
 		
 		CampaignData campaignData = new CampaignData(initialCampaignMessage);
 		campaignData.setBudget(initialCampaignMessage.getBudgetMillis()/1000.0);
 		currCampaign = campaignData;
-		totalPop= genCampaignQueries(currCampaign);
+		initTotalPopularity(currCampaign);
+		genCampaignQueries(currCampaign);
+
 		
 
 		/*
 		 * The initial campaign is already allocated to our agent so we add it
 		 * to our allocated-campaigns list.
 		 */
-		System.out.println("Day " + day + ": Allocated campaign - " + campaignData);
+		System.out.println("Day " + w.day + ": Allocated campaign - " + campaignData);
 		myCampaigns.put(initialCampaignMessage.getId(), campaignData);
 		for (int i=0; i<60;i++){
 			campTrack.add(new ArrayList<Integer>());
@@ -261,10 +248,10 @@ public class TrialAdNetwork extends Agent {
 	private void handleICampaignOpportunityMessage(
 			CampaignOpportunityMessage com) {
 
-		day = com.getDay();
+		w.day = com.getDay();
 
 		pendingCampaign = new CampaignData(com);
-		System.out.println("Day " + day + ": Campaign opportunity - " + pendingCampaign);
+		System.out.println("Day " + w.day + ": Campaign opportunity - " + pendingCampaign);
 		int population=getPop(pendingCampaign);
 		System.out.println(population);
 		/*
@@ -280,7 +267,7 @@ public class TrialAdNetwork extends Agent {
 		//-------------Leela Campaign Bid--------------
 		long cmpimps = com.getReachImps();
 		long cmpBidMillis= (long)((cmpimps*0.1)*(2-(population/10000))*adNetworkDailyNotification.getQualityScore());
-		System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		System.out.println("Day " + w.day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 		//-------------Leela Campaign Bid--------------
 		//-------------Anne Campaign Bid---------------
 		/*Random random = new Random();
@@ -303,10 +290,10 @@ public class TrialAdNetwork extends Agent {
 
 		if(ucsLevel <= 0.9){
 			 cmpBidMillis = (long)(cmpimps*0.1);
-			System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+			System.out.println("Day " + w.day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 		}else{
 		            cmpBidMillis = (long)(cmpimps*cmpFactor);
-			System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+			System.out.println("Day " + w.day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 		}  */
 		//-------------Anne Campaign Bid---------------
 		
@@ -356,9 +343,9 @@ public class TrialAdNetwork extends Agent {
 			lastUCS=ucsBid;
 			//ucsBid=0.2;
 			//ucsBid = 0.1 + random.nextDouble()/10.0;			
-			System.out.println("Day " + day + ": ucs level reported: " + ucsLevel);
+			System.out.println("Day " + w.day + ": ucs level reported: " + ucsLevel);
 		} else {
-			System.out.println("Day " + day + ": Initial ucs bid is " + ucsBid);
+			System.out.println("Day " + w.day + ": Initial ucs bid is " + ucsBid);
 		}
 		/* Note: Campaign bid is in millis */
 		AdNetBidMessage bids;
@@ -389,8 +376,8 @@ public class TrialAdNetwork extends Agent {
 				if(overlap>=2){
 					return false;
 				}*/
-				Set<String> newCamp= expandSeg(pendingCampaign.targetSegment);
-				Set<String> oldCamp= expandSeg(camp.targetSegment);
+				Set<String> newCamp= w.expandSeg(pendingCampaign.targetSegment);
+				Set<String> oldCamp= w.expandSeg(camp.targetSegment);
 				newCamp.retainAll(oldCamp);
 				if(newCamp.size()>2)
 					return false;
@@ -400,71 +387,10 @@ public class TrialAdNetwork extends Agent {
 		return shouldBid;
 	}
 	
-	private Set<String> expandSeg(Set<MarketSegment> mktSeg){
-		Set<String> seg= new HashSet<String>();
-		seg.add("FYL");
-		seg.add("FYH");
-		seg.add("FOL");
-		seg.add("FOH");
-		seg.add("MYL");
-		seg.add("MYH");
-		seg.add("MOL");
-		seg.add("MOH");
-		Boolean[] a1=splitSegment(mktSeg);	
-		Boolean age=a1[0];
-		Boolean gender=a1[1];
-		Boolean income=a1[2];
-		if(age!=null){
-			if(age){ //age-old... remove all young
-				seg.remove("FYL");
-				seg.remove("MYL");
-				seg.remove("FYH");
-				seg.remove("MYH");
-			}
-			else if(!age){ //age-young... remove all old
-				seg.remove("FOL");
-				seg.remove("MOL");
-				seg.remove("FOH");
-				seg.remove("MOH");
-			
-			}
-		}
-		if(gender!=null){
-			if(gender){ //gender-female... remove all male
-				if(seg.contains("FYL")){seg.remove("FYL");}
-				if(seg.contains("FOL")){seg.remove("FOL");}
-				if(seg.contains("FYH")){seg.remove("FYH");}
-				if(seg.contains("FOH")){seg.remove("FOH");}
-			}
-			else if(!gender){ //gender-male... remove all female
-				if(seg.contains("MYL")){seg.remove("MYL");}
-				if(seg.contains("MOL")){seg.remove("MOL");}
-				if(seg.contains("MYH")){seg.remove("MYH");}
-				if(seg.contains("MOH")){seg.remove("MOH");}
-			
-			}
-		}
-		if(income!=null){
-			if(income){ //income-high... remove all low
-				if(seg.contains("MYL")){seg.remove("MYL");}
-				if(seg.contains("MOL")){seg.remove("MOL");}
-				if(seg.contains("FYL")){seg.remove("FYL");}
-				if(seg.contains("FOL")){seg.remove("FOL");}
-			}
-			else if(!income){ //income-low... remove all high
-				
-				if(seg.contains("MYH")){seg.remove("MYH");}
-				if(seg.contains("MOH")){seg.remove("MOH");}
-				if(seg.contains("FYH")){seg.remove("FYH");}
-				if(seg.contains("FOH")){seg.remove("FOH");}
-			}
-			
-		}
-		return seg;
-	}
+	
 	
 	private double getUCSBid(double ucsLevel, double ucsBid){
-		double ro=0.75*dailyReach(day);
+		double ro=0.75*dailyReach(w.day);
 		double gucs=0.75;
 		if (ucsLevel>0.9){
 			return (ucsBid/(1+gucs));
@@ -487,145 +413,33 @@ public class TrialAdNetwork extends Agent {
 		return dailyReach;
 	}
 
-	private int getPop(Boolean age, Boolean gender, Boolean income){
-		int pop=0;
-		if (age!=null){
-			if (gender!=null){
-				if (income!=null){ 	//income,age,gender
-					pop=	popData[income?1:0][age?1:0][gender?1:0];
-					return pop;
-				}
-				else{				//age,gender
-					pop= 	popData[0][age?1:0][gender?1:0]+
-							popData[1][age?1:0][gender?1:0];
-					return pop;
-				}
-			}
-			else{
-				if (income!=null){	//income,age
-					pop= 	popData[income?1:0][age?1:0][0]+
-							popData[income?1:0][age?1:0][1];
-					return pop;
-				}
-				else{ 				//age
-					pop= 	popData[0][age?1:0][0]+
-							popData[0][age?1:0][1]+
-							popData[1][age?1:0][0]+
-							popData[1][age?1:0][1];
-					return pop;
-				}
-			}
-		}
-		else{
-			if (gender!=null){
-				if (income!=null){	//income,gender
-					pop= 	popData[income?1:0][0][gender?1:0]+
-							popData[income?1:0][1][gender?1:0];
-					return pop;
-				}
-				else{				//gender
-					pop= 	popData[0][age?1:0][0]+
-							popData[0][age?1:0][1]+
-							popData[1][age?1:0][0]+
-							popData[1][age?1:0][1];
-					return pop;
-				}
-			}
-			else{
-				if (income!=null){	//age
-					pop= 	popData[0][age?1:0][0]+
-							popData[0][age?1:0][1]+
-							popData[1][age?1:0][0]+
-							popData[1][age?1:0][1];
-					return pop;
-				}
-				else{				//
-					pop= 	10000;
-					return pop;
-				}
-			}
-		}
-	}
-
-	private Boolean[] splitSegment(Set<MarketSegment> seg){
-		System.out.println(seg.toArray().length);
-		Boolean retSeg[]= new Boolean[3];
-		for (int i=0; i<seg.toArray().length; i++){
-			String element=seg.toArray()[i].toString();
-			if(element.equals("FEMALE")){
-				retSeg[1]=true;
-			}
-			else if(element.equals("MALE")){
-				retSeg[1]=false;
-			}
-			if(element.equals("YOUNG")){
-				retSeg[0]=false;
-			}
-			else if(element.equals("OLD")){
-				retSeg[0]=true;
-			}
-			if(element.equals("LOW_INCOME")){
-				retSeg[2]=false;
-			}
-			else if(element.equals("HIGH_INCOME")){
-				retSeg[2]=true;
-			}
-		}
-		return retSeg;
-	}
+	
 	
 	private int getPop(CampaignData camp){
-		Boolean mktSeg[]= splitSegment(camp.targetSegment);
-		return (getPop(mktSeg[0],mktSeg[1],mktSeg[2]));
+		Boolean mktSeg[]= w.splitSegment(camp.targetSegment);
+		return (w.getPop(mktSeg[0],mktSeg[1],mktSeg[2]));
 	}
 	
 	private double impFactor(CampaignData camp, String publisher){
 		double bidFactor=1.0;
-		Boolean mktSeg[]= splitSegment(camp.targetSegment);
+		Boolean mktSeg[]= w.splitSegment(camp.targetSegment);
 		if(mktSeg[0]) //age
-			bidFactor=bidFactor*publisherStats.get(publisher)[0]; //age
+			bidFactor=bidFactor*w.publisherStats.get(publisher)[0]; //age
 		else
-			bidFactor=bidFactor*(100-publisherStats.get(publisher)[0]);
+			bidFactor=bidFactor*(100-w.publisherStats.get(publisher)[0]);
 		if(mktSeg[1])//gender
-			bidFactor=bidFactor*publisherStats.get(publisher)[2];//gender
+			bidFactor=bidFactor*w.publisherStats.get(publisher)[2];//gender
 		else
-			bidFactor=bidFactor*(100-publisherStats.get(publisher)[2]);
+			bidFactor=bidFactor*(100-w.publisherStats.get(publisher)[2]);
 		if(mktSeg[2])
-			bidFactor=bidFactor*publisherStats.get(publisher)[1];
+			bidFactor=bidFactor*w.publisherStats.get(publisher)[1];
 		else
-			bidFactor=bidFactor*(100-publisherStats.get(publisher)[1]);
+			bidFactor=bidFactor*(100-w.publisherStats.get(publisher)[1]);
 		return bidFactor;
 		
 	}
 	
-	private void initPublishers(){ //age,income, gender
-		String publishers[]={ "yahoo", "cnn", "nyt", "hfn",
-				"msn", "fox", "amazon", "ebay", "wallmart", "target", "bestbuy",
-				"sears", "webmd", "ehow", "ask", "tripadvisor", "cnet", "weather" };
-		Double stats[][]={	{46.0	,	80.0	,	49.6	,	16.0},
-							{43.0	,	75.0	,	48.6	,	2.2},
-							{41.0	,	73.0	,	47.6	,	3.1},
-							{43.0	,	74.0	,	46.6	,	8.1},
-							{43.0	,	76.0	,	47.6	,	18.2},
-							{41.0	,	72.0	,	48.6	,	3.1},
-							{41.0	,	77.0	,	47.6	,	12.8},
-							{41.0	,	77.0	,	48.6	,	8.5},
-							{39.0	,	75.0	,	45.6	,	3.8},
-							{44.0	,	72.0	,	45.6	,	2.0},
-							{41.0	,	72.5	,	47.6	,	1.6},
-							{38.0	,	70.0	,	46.6	,	1.6},
-							{40.0	,	72.5	,	45.6	,	2.5},
-							{41.0	,	77.0	,	47.6	,	2.5},
-							{39.0	,	78.0	,	48.6	,	5.0},
-							{42.0	,	72.5	,	46.6	,	1.6},
-							{43.0	,	74.5	,	50.6	,	1.7},
-							{41.0	,	72.0	,	47.6	,	5.8}};
-		for (int i=0; i<publishers.length; i++){
-			Double temp[]={stats[i][0],stats[i][1],stats[i][2],stats[i][3]};
-			publisherStats.put(publishers[i], temp);
-		}
-		
-	}
+	
 
 	/**
 	 * On day n ( > 0), the result of the UserClassificationService and Campaign
@@ -638,7 +452,7 @@ public class TrialAdNetwork extends Agent {
 
 		adNetworkDailyNotification = notificationMessage;
 
-		System.out.println("Day " + day + ": Daily notification for campaign "
+		System.out.println("Day " + w.day + ": Daily notification for campaign "
 				+ adNetworkDailyNotification.getCampaignId());
 
 		String campaignAllocatedTo = " allocated to "
@@ -660,7 +474,7 @@ public class TrialAdNetwork extends Agent {
 					+ notificationMessage.getCostMillis();
 		}
 
-		System.out.println("Day " + day + ": " + campaignAllocatedTo
+		System.out.println("Day " + w.day + ": " + campaignAllocatedTo
 				+ ". UCS Level set to " + notificationMessage.getServiceLevel()
 				+ " at price " + notificationMessage.getPrice()
 				+ " Quality Score is: " + notificationMessage.getQualityScore());
@@ -672,11 +486,11 @@ public class TrialAdNetwork extends Agent {
 	 * to the AdX.
 	 */
 	private void handleSimulationStatus(SimulationStatus simulationStatus) {
-		System.out.println("Day " + day + " : Simulation Status Received");
+		System.out.println("Day " + w.day + " : Simulation Status Received");
 		sendBidAndAds();
-		System.out.println("Day " + day + " ended. Starting next day");
+		System.out.println("Day " + w.day + " ended. Starting next day");
 		//campTrack.add(new ArrayList<Integer>());
-		++day;
+		++w.day;
 	}
 
 	/**
@@ -690,7 +504,7 @@ public class TrialAdNetwork extends Agent {
 		 * 
 		 */
 
-		int dayBiddingFor = day + 1;
+		int dayBiddingFor = w.day + 1;
 
 		/* A fixed random bid, for all queries of the campaign */
 		/*
@@ -724,7 +538,7 @@ public class TrialAdNetwork extends Agent {
 						 * weight. by setting a constant weight 1, we create a
 						 * uniform probability over active campaigns(irrelevant because we are bidding only on one campaign)
 						 */
-						double factor= publisherStats.get(query.getPublisher())[3]/totalPop;
+						double factor= w.publisherStats.get(query.getPublisher())[3]/w.totalPopularity;
 						//double rbid = 1000.0*(0.5+factor);
 						//double rbid= 10000.0; //EXTREME!!! or 20000.0
 						//double rbid = publisherStats.values().//.*2*(0.5+factor); //What's this? :/
@@ -775,13 +589,13 @@ public class TrialAdNetwork extends Agent {
 				bidBundle.setCampaignDailyLimit(currCampaign.id,
 						(int) impressionLimit, budgetLimit);
 
-				System.out.println("Day " + day + ": Updated " + entCount
+				System.out.println("Day " + w.day + ": Updated " + entCount
 						+ " Bid Bundle entries for Campaign id " + currCampaign.id);
 			}
 		}
 		
 		if (bidBundle != null) {
-			System.out.println("Day " + day + ": Sending BidBundle");
+			System.out.println("Day " + w.day + ": Sending BidBundle");
 			sendMessage(adxAgentAddress, bidBundle);
 		}
 		avgPrice=totalPrice/totalFactor;
@@ -804,7 +618,7 @@ public class TrialAdNetwork extends Agent {
 					campaignKey).getCampaignStats();
 			myCampaigns.get(cmpId).setStats(cstats);
 
-			System.out.println("Day " + day + ": Updating campaign " + cmpId + " stats: "
+			System.out.println("Day " + w.day + ": Updating campaign " + cmpId + " stats: "
 					+ cstats.getTargetedImps() + " tgtImps "
 					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
 					+ cstats.getCost());
@@ -818,9 +632,9 @@ public class TrialAdNetwork extends Agent {
 		System.out.print("~~~~~~~~~~");
 		System.out.print(myCampaigns.size());
 		System.out.print("~~~~~~~~~~");
-		System.out.print(campTrack.get(day).size());
+		System.out.print(campTrack.get(w.day).size());
 		System.out.print("~~~~~~~~~~");
-		System.out.print(day);
+		System.out.print(w.day);
 		System.out.println("~~~~~~~~~~");
 		
 		System.out.println("Publishers Report: ");
@@ -837,7 +651,7 @@ public class TrialAdNetwork extends Agent {
 	 */
 	private void handleAdNetworkReport(AdNetworkReport adnetReport) {
 
-		System.out.println("Day " + day + " : AdNetworkReport");
+		System.out.println("Day " + w.day + " : AdNetworkReport");
 		/*
 		 * for (AdNetworkKey adnetKey : adnetReport.keys()) {
 		 * 
@@ -850,7 +664,7 @@ public class TrialAdNetwork extends Agent {
 	@Override
 	protected void simulationSetup() {
 
-		day = 0;
+		w.day = 0;
 		bidBundle = new AdxBidBundle();
 
 		/* initial bid between 0.1 and 0.2 */
@@ -866,87 +680,13 @@ public class TrialAdNetwork extends Agent {
 		bidBundle = null;
 	}
 
-	/**
-	 * A user visit to a publisher's web-site results in an impression
-	 * opportunity (a query) that is characterized by the the publisher, the
-	 * market segment the user may belongs to, the device used (mobile or
-	 * desktop) and the ad type (text or video).
-	 * 
-	 * An array of all possible queries is generated here, based on the
-	 * publisher names reported at game initialization in the publishers catalog
-	 * message
-	 */
-	private void generateAdxQuerySpace() {
-		if (publisherCatalog != null && queries == null) {
-			Set<AdxQuery> querySet = new HashSet<AdxQuery>();
-
-			/*
-			 * for each web site (publisher) we generate all possible variations
-			 * of device type, ad type, and user market segment
-			 */
-			for (PublisherCatalogEntry publisherCatalogEntry : publisherCatalog) {
-				String publishersName = publisherCatalogEntry
-						.getPublisherName();
-				for (MarketSegment userSegment : MarketSegment.values()) {
-					Set<MarketSegment> singleMarketSegment = new HashSet<MarketSegment>();
-					singleMarketSegment.add(userSegment);
-
-					querySet.add(new AdxQuery(publishersName,
-							singleMarketSegment, Device.mobile, AdType.text));
-
-					querySet.add(new AdxQuery(publishersName,
-							singleMarketSegment, Device.pc, AdType.text));
-
-					querySet.add(new AdxQuery(publishersName,
-							singleMarketSegment, Device.mobile, AdType.video));
-
-					querySet.add(new AdxQuery(publishersName,
-							singleMarketSegment, Device.pc, AdType.video));
-
-				}
-
-				/**
-				 * An empty segments set is used to indicate the "UNKNOWN"
-				 * segment such queries are matched when the UCS fails to
-				 * recover the user's segments.
-				 */
-				querySet.add(new AdxQuery(publishersName,
-						new HashSet<MarketSegment>(), Device.mobile,
-						AdType.video));
-				querySet.add(new AdxQuery(publishersName,
-						new HashSet<MarketSegment>(), Device.mobile,
-						AdType.text));
-				querySet.add(new AdxQuery(publishersName,
-						new HashSet<MarketSegment>(), Device.pc, AdType.video));
-				querySet.add(new AdxQuery(publishersName,
-						new HashSet<MarketSegment>(), Device.pc, AdType.text));
-			}
-			queries = new AdxQuery[querySet.size()];
-			querySet.toArray(queries);
-		}
-	}
 	
-	/*genarates an array of the publishers names
-	 * */
-	private void getPublishersNames() {
-		if (null == publisherNames && publisherCatalog != null) {
-			ArrayList<String> names = new ArrayList<String>();
-			for (PublisherCatalogEntry pce : publisherCatalog) {
-				names.add(pce.getPublisherName());
-			}
-
-			publisherNames = new String[names.size()];
-			names.toArray(publisherNames);
-		}
-	}
 	/*
 	 * genarates the campaign queries relevant for the specific campaign, and assign them as the campaigns campaignQueries field 
 	 */
-	private double genCampaignQueries(CampaignData campaignData) {
+	private void genCampaignQueries(CampaignData campaignData) {
 		Set<AdxQuery> campaignQueriesSet = new HashSet<AdxQuery>();
-		double totalPop=0.0;
-		for (String PublisherName : publisherNames) {
-			totalPop=totalPop+publisherStats.get(PublisherName)[3];
+		for (String PublisherName : w.publisherNames) {
 			campaignQueriesSet.add(new AdxQuery(PublisherName,
 					campaignData.targetSegment, Device.mobile, AdType.text));
 			campaignQueriesSet.add(new AdxQuery(PublisherName,
@@ -960,9 +700,17 @@ public class TrialAdNetwork extends Agent {
 		campaignData.campaignQueries = new AdxQuery[campaignQueriesSet.size()];
 		campaignQueriesSet.toArray(campaignData.campaignQueries);
 		System.out.println("!!!!!!!!!!!!!!!!!!!!!!"+Arrays.toString(campaignData.campaignQueries)+"!!!!!!!!!!!!!!!!");
-		return totalPop;
-
 	}
+
+	public void initTotalPopularity(CampaignData campaignData){
+		double totalPop=0.0;
+		for (String PublisherName : w.publisherNames) {
+			totalPop=totalPop+w.publisherStats.get(PublisherName)[3];
+		}
+		w.totalPopularity = totalPop;
+	}
+
+	
 
 	private class CampaignData {
 		/* campaign attributes as set by server */
