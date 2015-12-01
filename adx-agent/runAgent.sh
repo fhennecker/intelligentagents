@@ -10,7 +10,7 @@ echo $CLASSPATH
 
 javac -cp lib/adx-1.3.0.jar helpers/*.java
 javac -cp lib/adx-1.3.0.jar:.:helpers AdNetwork.java
-jar cf AdNetwork.jar AdNetwork.class AdNetwork\$CampaignData.class helpers/*.class
+jar cf AdNetwork.jar AdNetwork.class helpers/*.class
 mv AdNetwork.jar lib/
-rm AdNetwork.class AdNetwork\$CampaignData.class
+rm AdNetwork.class
 java -cp "lib/*:helpers" tau.tac.adx.agentware.Main -config config/aw-1.conf
