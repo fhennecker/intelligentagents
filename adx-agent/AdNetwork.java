@@ -50,6 +50,7 @@ import helpers.CampaignData;
 import helpers.CampaignAuctioner;
 import helpers.UCSAuctioner;
 import helpers.ImpressionsAuctioner;
+import helpers.EM;
 
 
 /**
@@ -65,6 +66,7 @@ public class AdNetwork extends Agent {
 	private CampaignAuctioner ca;
 	private UCSAuctioner ua;
 	private ImpressionsAuctioner ia;
+	private EM em;
 	
 	//private ArrayList<CampaignData> prevDay= new ArrayList<CampaignData>();
 
@@ -112,6 +114,7 @@ public class AdNetwork extends Agent {
 		ca = new CampaignAuctioner(w, d, log);
 		ua = new UCSAuctioner(w, d, log);
 		ia = new ImpressionsAuctioner(w, d, log);
+		em = new EM();
 		campaignReports = new LinkedList<CampaignReport>();
 	}
 
@@ -211,6 +214,7 @@ public class AdNetwork extends Agent {
         d.campaigns.put(initialCampaignMessage.getId(), campaignData);
         for (int i=0; i<60;i++){
             d.campTrack.add(new ArrayList<Integer>());
+            d.otherCampTrack.add(new ArrayList<Integer>());
         }
         for (int i= (int)d.currCampaign.dayStart; i<= (int)d.currCampaign.dayEnd; i++){
             d.campTrack.get(i).add(d.currCampaign.id);
@@ -286,6 +290,13 @@ public class AdNetwork extends Agent {
 			
 			campaignAllocatedTo = " WON at cost (Millis)"
 					+ notificationMessage.getCostMillis();
+			em.pastQBWon.add(notificationMessage.getQualityScore()/(notificationMessage.getPrice()/d.currCampaign.reachImps));
+		}
+		else{
+			em.pastQBLost.add(notificationMessage.getQualityScore()/(notificationMessage.getPrice()/d.pendingCampaign.reachImps));
+			for (int i= (int)d.pendingCampaign.dayStart; i<= (int)d.pendingCampaign.dayEnd; i++){
+				d.otherCampTrack.get(i).add(d.pendingCampaign.id);
+			}
 		}
 
 		System.out.println("Day " + w.day + ": " + campaignAllocatedTo

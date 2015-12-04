@@ -8,7 +8,8 @@ TACAA_HOME=`pwd`
 echo $TACAA_HOME
 echo $CLASSPATH
 
-javac -cp lib/adx-1.3.0.jar helpers/*.java
+javac -cp lib/commons-math3-3.5.jar lib/Erf.java
+javac -cp lib/adx-1.3.0.jar:lib/commons-math3-3.5.jar:lib helpers/*.java
 javac -cp lib/adx-1.3.0.jar:.:helpers AdNetwork.java
 jar cf AdNetwork.jar AdNetwork.class helpers/*.class
 mv AdNetwork.jar lib/

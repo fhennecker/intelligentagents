@@ -50,6 +50,7 @@ import helpers.CampaignData;
 public class AgentData {
 
     public ArrayList<ArrayList<Integer>> campTrack= new ArrayList<ArrayList<Integer>>();
+    public ArrayList<ArrayList<Integer>> otherCampTrack= new ArrayList<ArrayList<Integer>>();
     //public HashMap<Set<MarketSegment>, Integer> mktSegs = new HashMap<Set<MarketSegment>, Integer>();
     public double lastUCS=0.2;
     public double avgPrice;
