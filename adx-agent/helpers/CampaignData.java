@@ -61,7 +61,7 @@ public class CampaignData {
     /* campaign info as reported */
     public CampaignStats stats;
     public double budget;
-
+    public int count; 
     public CampaignData(InitialCampaignMessage icm) {
         reachImps = icm.getReachImps();
         dayStart = icm.getDayStart();
