@@ -80,16 +80,16 @@ public class CampaignAuctioner {
          if(day  == 1){
                         	cmpBidMillis = (long)(Math.ceil(cmpimps*0.1));
                         } else{
-		if( currCampaign.id == adNetworkDailyNotification.getCampaignId() && adNetworkDailyNotification.getCostMillis() == currCampaign.budget){
+		if( currCampaign.id == d.dailyNotification.getCampaignId() && d.dailyNotification.getCostMillis() == currCampaign.budget){
 			cmpFactor = cmpFactor;
-		}else if(currCampaign.id == adNetworkDailyNotification.getCampaignId() && adNetworkDailyNotification.getCostMillis() != currCampaign.budget){
+		}else if(currCampaign.id == d.dailyNotification.getCampaignId() && d.dailyNotification.getCostMillis() != currCampaign.budget){
 			cmpFactor = cmpFactor*Gre;
 			counter++;
                      
 		}else {
 			cmpFactor = cmpFactor/Gre;
 		}
-        if(adNetworkDailyNotification.getQualityScore() < 0.9){
+        if(d.dailyNotification.getQualityScore() < 0.9){
 			 cmpBidMillis = (long)(Math.ceil(cmpimps*0.1));
 			//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 		}else{
