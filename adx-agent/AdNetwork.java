@@ -183,10 +183,29 @@ public class AdNetwork extends Agent {
 	 * which bids regarding campaign opportunities may be sent in subsequent
 	 * days) are also reported in the initial campaign message
 	 */
+	public int count; 
 	public void handleInitialCampaignMessage(
             InitialCampaignMessage campaignMessage) {
         System.out.println(campaignMessage.toString());
+       /*************************************Open and read the camplog file*******************************************************/
+        String str = null;
+                        try{
+                      //  int count = 0;
+		FileReader file = new FileReader("camLog.txt");
+                       BufferedReader reader = new BufferedReader(file);  
 
+                       
+                        str = reader.readLine();
+                      
+                         count = Integer.parseInt(str);
+                        
+                        }catch (IOException e) {
+	        	
+	        }
+                       
+                       System.out.println("********^^^^^^^^^^^^^^^^^^^^******************" +count);
+       
+       /*************************************end file*****************************************************************************/
         w.day = 0;
 
         initialCampaignMessage = campaignMessage;
