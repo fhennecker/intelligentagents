@@ -190,7 +190,7 @@ public class AdNetwork extends Agent {
 	public void handleInitialCampaignMessage(
             InitialCampaignMessage campaignMessage) {
         System.out.println(campaignMessage.toString());
-       /*************************************Open and read the camplog file*******************************************************/
+      /*************************************Open and read the camplog file*******************************************************/
         String str = null;
                         try{
                       //  int count = 0;
@@ -200,13 +200,13 @@ public class AdNetwork extends Agent {
                        
                         str = reader.readLine();
                       
-                         count = Integer.parseInt(str);
+                         campaignData.count = Integer.parseInt(str);
                         
                         }catch (IOException e) {
 	        	
 	        }
                        
-                       System.out.println("********^^^^^^^^^^^^^^^^^^^^******************" +count);
+                       System.out.println("********^^^^^^^^^^^^^^^^^^^^******************" +campaignData.count);
        
        /*************************************end file*****************************************************************************/
         w.day = 0;
