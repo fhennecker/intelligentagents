@@ -55,21 +55,84 @@ public class CampaignAuctioner {
     private World w;
     private AgentData d;
     private Logger log;
+    
+    private CampaignData  cd;
 
     public CampaignAuctioner(World world, AgentData data, Logger log){
         w = world;
         d = data;
         log = log;
+        
     }
 
-
+    double Gre = 1.2;
+	double cmpFactor = 0.2;
+	long cmpBidMillis;
+	int counter = 0;
+	
     double cmpFactor = 1.2;
     long cmpBidMillis;
     public long bidValue(CampaignOpportunityMessage com){
-        int population=w.getTargetedPopulation(d.pendingCampaign);
-        System.out.println(population);
+        
+        Gre = 1.3-cd.count/60.0;
+        
+        //int population=w.getTargetedPopulation(d.pendingCampaign);
+        //System.out.println(population);
         long cmpimps = com.getReachImps();
-        long cmpBidMillis= (long)((cmpimps*0.1)*(2-(population/10000))*d.dailyNotification.getQualityScore());
+        //long cmpBidMillis= (long)((cmpimps*0.1)*(2-(population/10000))*d.dailyNotification.getQualityScore());
+ if(w.day  == 1){
+                        	cmpBidMillis = (long)(Math.ceil(cmpimps*0.1));
+                        } else{
+		if( d.currCampaign.id == d.dailyNotification.getCampaignId() && d.dailyNotification.getCostMillis() == d.currCampaign.budget){
+			cmpFactor = cmpFactor;
+		}else if(d.currCampaign.id == d.dailyNotification.getCampaignId() && d.dailyNotification.getCostMillis() != d.currCampaign.budget){
+			cmpFactor = cmpFactor*Gre;
+			counter++;
+                     
+		}else {
+			cmpFactor = cmpFactor/Gre;
+		}
+        if(d.dailyNotification.getQualityScore() < 0.9){
+			 cmpBidMillis = (long)(Math.ceil(cmpimps*0.1));
+			//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		}else{
+			if(cmpFactor >1){
+				cmpFactor = 1;
+			} else if(cmpFactor < 0.1){
+				cmpFactor = 0.1;
+			}
+		            cmpBidMillis = (long)(Math.ceil(cmpimps*cmpFactor));
+		            if(cmpBidMillis > cmpimps){
+		            	cmpBidMillis = cmpimps;
+		            } else if(cmpBidMillis < (long)(0.1*cmpimps)){
+		            	cmpBidMillis = (long)(Math.ceil(0.1*cmpimps));
+		            }
+			//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
+		}  
+	}
+		System.out.println("Day " + w.day + ": Campaign total budget bid (millis): " + cmpBidMillis + "factor" + cmpFactor + "Greed" +Gre);
+
+//***************************************************************************Add the counter to the file
+	   File camLog= new File("camLog.txt");
+       FileWriter fileWriter;// = new FileWriter(ucsLog,true);
+       BufferedWriter bufferedWriter; // new BufferedWriter(fileWriter);
+       //  fileWriter = new FileWriter(camLog);
+        //bufferedWriter = new BufferedWriter(fileWriter);
+                try{ 
+        	            fileWriter = new FileWriter(camLog);
+                        bufferedWriter = new BufferedWriter(fileWriter);
+                   // }catch (IOException e) {
+    	                 //this.log.log(Level.SEVERE,"Exception thrown while trying to parse message." + e);
+    	                 //return;
+                      //  }
+                //try{
+	        	   bufferedWriter.write( ""+ counter);
+	               bufferedWriter.newLine();
+	               bufferedWriter.close();
+	               }catch (IOException e) {
+	        	  // return;
+	               }  
+	        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" +counter);
         return cmpBidMillis;
     }
     
