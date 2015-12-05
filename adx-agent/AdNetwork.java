@@ -11,8 +11,10 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -43,6 +45,9 @@ import tau.tac.adx.sim.config.AdxConfigurationParser;
 import edu.umich.eecs.tac.props.Ad;
 import edu.umich.eecs.tac.props.BankStatus;
 import java.sql.*;
+
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+
 
 import helpers.World;
 import helpers.AgentData;
@@ -190,7 +195,22 @@ public class AdNetwork extends Agent {
 	public void handleInitialCampaignMessage(
             InitialCampaignMessage campaignMessage) {
         System.out.println(campaignMessage.toString());
-      /*************************************Open and read the camplog file*******************************************************/
+        
+        w.day = 0;
+
+        initialCampaignMessage = campaignMessage;
+        demandAgentAddress = campaignMessage.getDemandAgentAddress();
+        adxAgentAddress = campaignMessage.getAdxAgentAddress();
+
+        
+        
+        CampaignData campaignData = new CampaignData(initialCampaignMessage);
+        campaignData.setBudget(initialCampaignMessage.getBudgetMillis()/1000.0);
+        d.currCampaign = campaignData;
+        initTotalPopularity(campaignData);
+        genCampaignQueries(campaignData);
+
+        /*************************************Open and read the camplog file*******************************************************/
         String str = null;
                         try{
                       //  int count = 0;
@@ -209,21 +229,7 @@ public class AdNetwork extends Agent {
                        System.out.println("********^^^^^^^^^^^^^^^^^^^^******************" +campaignData.count);
        
        /*************************************end file*****************************************************************************/
-        w.day = 0;
-
-        initialCampaignMessage = campaignMessage;
-        demandAgentAddress = campaignMessage.getDemandAgentAddress();
-        adxAgentAddress = campaignMessage.getAdxAgentAddress();
-
-        
-        
-        CampaignData campaignData = new CampaignData(initialCampaignMessage);
-        campaignData.setBudget(initialCampaignMessage.getBudgetMillis()/1000.0);
-        d.currCampaign = campaignData;
-        initTotalPopularity(campaignData);
-        genCampaignQueries(campaignData);
-
-        
+      
 
         /*
          * The initial campaign is already allocated to our agent so we add it
@@ -253,6 +259,25 @@ public class AdNetwork extends Agent {
         
         //-------------Leela Campaign Bid--------------
         long cmpBidMillis = ca.bidValue(com);
+        System.out.print("Original bid : ");
+        System.out.println(cmpBidMillis);
+        System.out.print("Won/Loss ratio on 5 days :");
+        System.out.println(d.wonLossRatio(w.day, 5));
+        if (w.day > 5) {
+        	if (d.wonLossRatio(w.day, 5) < 0.5) {
+        		cmpBidMillis += (long) em.getPessimisticBid(com.getReachImps());
+        	}
+        	else {
+        		cmpBidMillis += (long) em.getOptimisticBid(com.getReachImps());
+        	}
+        	cmpBidMillis /= 2; // average between EM's bid and our bid
+        	if (cmpBidMillis < com.getReachImps() / 10 + 1){
+        		cmpBidMillis = (long) com.getReachImps() / 10 + 1;
+        	}
+        }
+        // System.out.print("  - Pessimistic bid : ");
+        // System.out.println(em.getPessimisticBid(com.getReachImps()));
+        
         System.out.println("Day " + w.day + ": Campaign total budget bid (millis): " + cmpBidMillis);
        
         if (d.dailyNotification != null) {
@@ -275,6 +300,7 @@ public class AdNetwork extends Agent {
         //cmpBidMillis=(long)(cmpimps*0.1);
         bids = new AdNetBidMessage(d.ucsBid, d.pendingCampaign.id, cmpBidMillis);
         sendMessage(demandAgentAddress, bids);
+        d.yesterdayCampaignBid = cmpBidMillis;
     }
 	
 
@@ -298,6 +324,7 @@ public class AdNetwork extends Agent {
 		if ((d.pendingCampaign.id == d.dailyNotification.getCampaignId())
 				&& (notificationMessage.getCostMillis() != 0)) {
 
+			d.registerWin(w.day);
 			/* add campaign to list of won campaigns */
 			d.pendingCampaign.setBudget(notificationMessage.getCostMillis()/1000.0);
 			d.currCampaign = d.pendingCampaign;
@@ -309,10 +336,12 @@ public class AdNetwork extends Agent {
 			
 			campaignAllocatedTo = " WON at cost (Millis)"
 					+ notificationMessage.getCostMillis();
-			em.pastQBWon.add(notificationMessage.getQualityScore()/(notificationMessage.getPrice()/d.currCampaign.reachImps));
+			em.wonBids.addValue((double)d.yesterdayCampaignBid/(double)d.pendingCampaign.reachImps);
 		}
 		else{
-			em.pastQBLost.add(notificationMessage.getQualityScore()/(notificationMessage.getPrice()/d.pendingCampaign.reachImps));
+			if (w.day > 1){
+				em.lostBids.addValue((double)d.yesterdayCampaignBid/(double)d.pendingCampaign.reachImps);
+			}
 			for (int i= (int)d.pendingCampaign.dayStart; i<= (int)d.pendingCampaign.dayEnd; i++){
 				d.otherCampTrack.get(i).add(d.pendingCampaign.id);
 			}

@@ -86,9 +86,6 @@ public class ImpressionsAuctioner {
                          * uniform probability over active campaigns(irrelevant because we are bidding only on one campaign)
                          */
                         double factor= w.publisherStats.get(query.getPublisher())[3]/w.totalPopularity;
-                        //double rbid = 1000.0*(0.5+factor);
-                        //double rbid= 10000.0; //EXTREME!!! or 20000.0
-                        //double rbid = publisherStats.values().//.*2*(0.5+factor); //What's this? :/
                         
                         double devFactor=1.0;
                         double adTypeFactor = 1.0;
@@ -104,8 +101,18 @@ public class ImpressionsAuctioner {
                         else if (query.getDevice() == Device.mobile) {
                             adTypeFactor=d.currCampaign.videoCoef;
                         }
-                        //= currCampaign.videoCoef;
-                        double rbid = 500.0+800.0*factor+100.0*devFactor+100.0*adTypeFactor;
+                        double rbid = 500.0+200.0*factor+100.0*devFactor+100.0*adTypeFactor;
+                        
+                        double doneImp= d.currCampaign.reachImps-d.currCampaign.impsTogo();
+                        double impPerDay=d.currCampaign.reachImps/(d.currCampaign.dayEnd-d.currCampaign.dayStart+1);
+                        //double goal= (w.day-currCampaign.dayStart)*impPerDay;
+                        //double impFactor= 1+(goal-doneImp)/currCampaign.reachImps;
+                        
+                        if((doneImp*1.2<impPerDay*(w.day-d.currCampaign.dayStart+1))&&(dayBiddingFor>d.currCampaign.dayStart)){
+                        	System.out.println("QUALITY SCORE LOW!!!");
+                        	rbid=1000.0;
+                        }
+                        
                         totalPrice=totalPrice+factor*rbid;
                         totalFactor=totalFactor+factor;
                         if (query.getDevice() == Device.pc) {
@@ -124,6 +131,8 @@ public class ImpressionsAuctioner {
                         }
                         d.bidBundle.addQuery(query, rbid, new Ad(null),
                                 d.currCampaign.id, 1);
+                        int weight=(int)Math.ceil(d.currCampaign.budget/d.currCampaign.reachImps*Math.pow(d.currCampaign.impsTogo()/(d.currCampaign.dayEnd-dayBiddingFor+1),2.0));
+                        d.bidBundle.getEntry(query).setWeight(weight);
                     }
                 }
 

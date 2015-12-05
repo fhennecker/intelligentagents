@@ -70,8 +70,8 @@ public class CampaignAuctioner {
 	long cmpBidMillis;
 	int counter = 0;
 	
-    double cmpFactor = 1.2;
-    long cmpBidMillis;
+    //double cmpFactor = 1.2;
+    //long cmpBidMillis;
     public long bidValue(CampaignOpportunityMessage com){
         
         Gre = 1.3-cd.count/60.0;

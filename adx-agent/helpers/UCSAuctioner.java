@@ -63,7 +63,15 @@ public class UCSAuctioner {
     }
 
     public double bidValue(){
-        double ro=0.75*d.dailyReach(w.day);
+        int noImpUCS=0;
+        for(int jj=0;jj<d.campTrack.get(w.day+1).size();jj++){
+            noImpUCS+=d.campaigns.get(d.campTrack.get(w.day+1).get(jj)).impsTogo();
+        }
+        if(noImpUCS==0)
+            return 0.0;
+        else
+            return 0.2;
+       /* double ro=0.75*d.dailyReach(w.day);
         double gucs=0.75;
         if (d.dailyNotification.getServiceLevel()>0.9){
             return (d.lastUCS/(1+gucs));
@@ -73,7 +81,7 @@ public class UCSAuctioner {
         }
         else{
             return d.lastUCS;
-        }
+        }*/
     }
 
 }
