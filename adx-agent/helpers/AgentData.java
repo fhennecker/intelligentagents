@@ -55,6 +55,8 @@ public class AgentData {
     public double lastUCS=0.2;
     public double avgPrice;
 
+    private double[] wonLosses = new double[60];
+
     /**
      * Information regarding the latest campaign opportunity announced
      */
@@ -83,6 +85,7 @@ public class AgentData {
 
 
     public CampaignData currCampaign;
+    public double yesterdayCampaignBid;
 
     public AdNetworkDailyNotification dailyNotification;
 
@@ -100,5 +103,18 @@ public class AgentData {
             dailyReach=dailyReach+currCampaign.reachImps/(currCampaign.dayEnd-currCampaign.dayStart+1);
         }
         return dailyReach;
+    }
+
+    public void registerWin(int day){
+        wonLosses[day] = 1;
+    }
+
+    public double wonLossRatio(int day, int days){
+        double res = 0;
+        int startDay = Math.max(day-days, 0);
+        for (int i=startDay; i<day; i++){
+            res += wonLosses[i];
+        }
+        return res/(day-startDay);
     }
 }
