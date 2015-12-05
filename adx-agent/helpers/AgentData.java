@@ -89,10 +89,14 @@ public class AgentData {
 
     public AdNetworkDailyNotification dailyNotification;
 
-    
+    /* For every day, keep a list of all running campaigns stats */
+    public ArrayList<HashMap<Integer, CampaignStats>> impressionStats;
 
     public AgentData(){
-
+        impressionStats = new ArrayList<HashMap<Integer, CampaignStats>>();
+        for (Integer i=0; i<60; i++) {
+            impressionStats.add(null);
+        }
     }
 
     public double dailyReach(int day){
@@ -116,5 +120,23 @@ public class AgentData {
             res += wonLosses[i];
         }
         return res/(day-startDay);
+    }
+
+    public double meanPricePerImp(int day){
+        double imps = 0;
+        double price = 0;
+        if (impressionStats.get(day) != null) {
+            for (int cmpId : impressionStats.get(day).keySet()) {
+                double dayImps = impressionStats.get(day).get(cmpId).getTargetedImps();
+                double dayPrice = impressionStats.get(day).get(cmpId).getCost();
+                if (day-1 > 0 && impressionStats.get(day-1).containsKey(cmpId)){
+                    dayImps -= impressionStats.get(day-1).get(cmpId).getTargetedImps();
+                    dayPrice -= impressionStats.get(day-1).get(cmpId).getCost();
+                }
+                imps += dayImps;
+                price += dayPrice;
+            }
+        }
+        return price/imps;
     }
 }

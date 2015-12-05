@@ -1,3 +1,5 @@
+package helpers;
+
 import libsvm.*;
 
 
@@ -12,6 +14,10 @@ class Regressor{
     */
     public Regressor(double[][] training_data){
         this.training_data = training_data;
+        // Disable svm output
+        svm.svm_set_print_string_function(new libsvm.svm_print_interface(){
+            @Override public void print(String s) {} 
+        });
         this.train();
     }
 
