@@ -115,15 +115,17 @@ public class CampaignAuctioner {
 //***************************************************************************Add the counter to the file
 	   File camLog= new File("camLog.txt");
        FileWriter fileWriter;// = new FileWriter(ucsLog,true);
-       BufferedWriter bufferedWriter; // = new BufferedWriter(fileWriter);
+       BufferedWriter bufferedWriter; // new BufferedWriter(fileWriter);
+       //  fileWriter = new FileWriter(camLog);
+        //bufferedWriter = new BufferedWriter(fileWriter);
                 try{ 
         	            fileWriter = new FileWriter(camLog);
                         bufferedWriter = new BufferedWriter(fileWriter);
-                    }catch (IOException e) {
+                   // }catch (IOException e) {
     	                 //this.log.log(Level.SEVERE,"Exception thrown while trying to parse message." + e);
     	                 //return;
-                        }
-                try{
+                      //  }
+                //try{
 	        	   bufferedWriter.write( ""+ counter);
 	               bufferedWriter.newLine();
 	               bufferedWriter.close();
