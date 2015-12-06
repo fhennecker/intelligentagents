@@ -7,8 +7,8 @@ import org.apache.commons.math3.special.Erf;
 
 public class EM {
 
-    public DescriptiveStatistics wonBids = new DescriptiveStatistics(7);
-    public DescriptiveStatistics lostBids = new DescriptiveStatistics(7);
+    public DescriptiveStatistics wonBids = new DescriptiveStatistics(5);
+    public DescriptiveStatistics lostBids = new DescriptiveStatistics(5);
 
     public EM(){
 
@@ -22,15 +22,11 @@ public class EM {
         return lostBids.getMean() - lostBids.getStandardDeviation();
     }
 
-    public double getPessimisticBid(double reach){
-        return reach * lostBids.getMean() - lostBids.getStandardDeviation()/2;
+    public double getPessimisticBid(double reach, double factor){
+        return reach * (lostBids.getMean() - lostBids.getStandardDeviation() * factor);
     }
 
-    public double getOptimisticBid(double reach){
-        System.out.print("Mean ");
-        System.out.print(wonBids.getMean());
-        System.out.print(", Variance ");
-        System.out.print(wonBids.getStandardDeviation());
-        return reach * wonBids.getMean() + wonBids.getStandardDeviation()/2;
+    public double getOptimisticBid(double reach, double factor){
+        return reach * (wonBids.getMean() + wonBids.getStandardDeviation() * factor);
     }
 }

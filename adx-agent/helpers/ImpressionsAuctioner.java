@@ -111,17 +111,16 @@ public class ImpressionsAuctioner {
                         //double impFactor= 1+(goal-doneImp)/currCampaign.reachImps;
                         
                         if((doneImp*1.2<impPerDay*(w.day-d.currCampaign.dayStart+1))&&(dayBiddingFor>d.currCampaign.dayStart)){
-                        	System.out.println("QUALITY SCORE LOW!!!");
                         	rbid=1000.0;
                         }
                         
                         totalPrice=totalPrice+factor*rbid;
                         totalFactor=totalFactor+factor;
                         
-                        d.bidBundle.addQuery(query, rbid, new Ad(null),
+                        d.bidBundle.addQuery(query, 1, new Ad(null),
                                 d.currCampaign.id, 1);
-                        int weight=(int)Math.ceil(d.currCampaign.budget/d.currCampaign.reachImps*Math.pow(d.currCampaign.impsTogo()/(d.currCampaign.dayEnd-dayBiddingFor+1),2.0));
-                        d.bidBundle.getEntry(query).setWeight(weight);
+                        //int weight=(int)Math.ceil(d.currCampaign.budget/d.currCampaign.reachImps*Math.pow(d.currCampaign.impsTogo()/(d.currCampaign.dayEnd-dayBiddingFor+1),2.0));
+                        //d.bidBundle.getEntry(query).setWeight(weight);
                     }
                 }
 
