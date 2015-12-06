@@ -49,6 +49,7 @@ import java.sql.*;
 
 import helpers.World;
 import helpers.AgentData;
+import helpers.Regressor;
 
 public class ImpressionsAuctioner {
 
@@ -168,6 +169,28 @@ public class ImpressionsAuctioner {
             bidFactor=bidFactor*(100-w.publisherStats.get(publisher)[1]);
         return bidFactor;
         
+    }
+
+    public double estimateImpCost(int days){
+        /* Regress on price per impression on given number of days before today*/
+        days = Math.min(days, w.day-1);
+        double[][] training = new double[days][2];
+        int i = 0;
+        System.out.print("Mean price per imps : ");
+        for (int day=w.day-days-1; day<w.day-1; day++) {
+            training[i][0] = day;
+            training[i][1] = d.meanPricePerImp(day);
+            i+=1;
+            System.out.print(d.meanPricePerImp(day));
+            System.out.print(" ");
+        }
+        Regressor r = new Regressor(training);
+        System.out.print(", Prediction : ");
+        double[] toPredict = new double[1];
+        toPredict[0] = w.day;
+        System.out.println(r.predict(toPredict));
+        
+        return r.predict(toPredict);
     }
 
 }

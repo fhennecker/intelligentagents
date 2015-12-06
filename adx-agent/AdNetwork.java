@@ -398,7 +398,13 @@ public class AdNetwork extends Agent {
 					+ cstats.getTargetedImps() + " tgtImps "
 					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
 					+ cstats.getCost());
+
+			if (d.impressionStats.get(w.day-1) == null){
+				d.impressionStats.set(w.day-1, new HashMap<Integer, CampaignStats>());
+			}
+			d.impressionStats.get(w.day-1).put(new Integer(cmpId), cstats);
 		}
+		ia.estimateImpCost(5);
 	}
 
 	/**
@@ -475,7 +481,6 @@ public class AdNetwork extends Agent {
 
 		campaignData.campaignQueries = new AdxQuery[campaignQueriesSet.size()];
 		campaignQueriesSet.toArray(campaignData.campaignQueries);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!"+Arrays.toString(campaignData.campaignQueries)+"!!!!!!!!!!!!!!!!");
 	}
 
 	public void initTotalPopularity(CampaignData campaignData){
