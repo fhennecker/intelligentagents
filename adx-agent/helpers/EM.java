@@ -23,7 +23,7 @@ public class EM {
     }
 
     public double getPessimisticBid(double reach){
-        return reach * lostBids.getMean() - lostBids.getStandardDeviation()/2;
+        return reach * (lostBids.getMean() - lostBids.getStandardDeviation()/2);
     }
 
     public double getOptimisticBid(double reach){
@@ -31,6 +31,6 @@ public class EM {
         System.out.print(wonBids.getMean());
         System.out.print(", Variance ");
         System.out.print(wonBids.getStandardDeviation());
-        return reach * wonBids.getMean() + wonBids.getStandardDeviation()/2;
+        return reach * (wonBids.getMean() + wonBids.getStandardDeviation()/2);
     }
 }

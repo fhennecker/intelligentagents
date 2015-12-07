@@ -76,7 +76,7 @@ public class AgentData {
     /*
      * The current bid level for the user classification service
      */
-    public double ucsBid;
+    public double ucsBid = 0.2;
 
     /*
      * The targeted service level for the user classification service
@@ -89,11 +89,13 @@ public class AgentData {
 
     public AdNetworkDailyNotification dailyNotification;
 
-    
+    public ArrayList<HashMap<Integer, CampaignStats>> impressionStats= new ArrayList<HashMap<Integer, CampaignStats>>();
 
     public AgentData(){
-
+        
     }
+    
+    
 
     public double dailyReach(int day){
         //myCampaigns.get(arg0)
@@ -103,6 +105,24 @@ public class AgentData {
             dailyReach=dailyReach+currCampaign.reachImps/(currCampaign.dayEnd-currCampaign.dayStart+1);
         }
         return dailyReach;
+    }
+    
+    public double meanPricePerImp(int day){
+        double imps = 0;
+        double price = 0;
+        if (impressionStats.get(day) != null) {
+            for (int cmpId : impressionStats.get(day).keySet()) {
+                double dayImps = impressionStats.get(day).get(cmpId).getTargetedImps();
+                double dayPrice = impressionStats.get(day).get(cmpId).getCost();
+                if (day-1 > 0 && impressionStats.get(day-1).containsKey(cmpId)){
+                    dayImps -= impressionStats.get(day-1).get(cmpId).getTargetedImps();
+                    dayPrice -= impressionStats.get(day-1).get(cmpId).getCost();
+                }
+                imps += dayImps;
+                price += dayPrice;
+            }
+        }
+        return price/imps;
     }
 
     public void registerWin(int day){

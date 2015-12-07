@@ -1,0 +1,24 @@
+07/12 01:54:29 INFO file.FileDatabase|infodb: database opened as /Users/leelaprabhu/Desktop/SOUTHAMPTON/Intelligent Agents/assignment/intelligentagents/adx-server/infodb
+07/12 01:54:29 INFO common.BlockingViewerServer|viewer server started at *:4042
+07/12 01:54:30 INFO sim.Admin|adding manager for simulation type tac13adx
+07/12 01:54:30 INFO server.TACTGateway|TACT Server started at *:6502
+07/12 01:54:36 INFO server.TACTChannel|user sample logged in as sample@tact-1 with version 0.9.6 from 127.0.0.1
+07/12 01:54:36 INFO sim.Admin|created simulation 106
+07/12 01:54:40 INFO server.TACTChannel|user agent00 logged in as agent00@tact-2 with version 0.9.6 from 127.0.0.1
+07/12 01:54:42 INFO server.TACTChannel|user bcm logged in as bcm@tact-3 with version 0.9.6 from 127.0.0.1
+07/12 01:54:44 INFO server.TACTChannel|user oos logged in as oos@tact-4 with version 0.9.6 from 127.0.0.1
+07/12 01:54:51 INFO server.TACTChannel|user giza logged in as giza@tact-5 with version 0.9.6 from 127.0.0.1
+07/12 01:54:54 INFO server.TACTChannel|user nitzan logged in as nitzan@tact-6 with version 0.9.6 from 127.0.0.1
+07/12 01:55:00 FINE sim.Admin|Entering log for simulation 95
+************************************************************
+* Entering log for simulation 95
+************************************************************
+
+
+07/12 02:05:02 INFO is.TACAAResultManager|generating results for simulation 95 to public_html/localhost/history/95/index.html
+07/12 02:06:45 INFO server.TACTChannel|user nitzan logged in as nitzan@tact-8 with version 0.9.6 from 127.0.0.1
+07/12 02:06:45 INFO server.TACTChannel|user giza logged in as giza@tact-10 with version 0.9.6 from 127.0.0.1
+07/12 02:06:45 INFO server.TACTChannel|user bcm logged in as bcm@tact-9 with version 0.9.6 from 127.0.0.1
+07/12 02:06:45 INFO server.TACTChannel|user sample logged in as sample@tact-11 with version 0.9.6 from 127.0.0.1
+07/12 02:06:45 INFO server.TACTChannel|user oos logged in as oos@tact-12 with version 0.9.6 from 127.0.0.1
+07/12 02:06:45 INFO server.TACTChannel|user agent00 logged in as agent00@tact-13 with version 0.9.6 from 127.0.0.1

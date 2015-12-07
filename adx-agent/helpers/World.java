@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 import java.util.Set;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.io.BufferedWriter;
@@ -53,6 +54,7 @@ public class World {
     public int day;
     public PublisherCatalog publisherCatalog;
     public String[] publisherNames;
+    public HashMap<String, Double[]> allMkt= new HashMap<String, Double[]>();
 
     /*
      * we maintain a list of queries - each characterized by the web site (the
@@ -181,6 +183,7 @@ public class World {
 
 
     public Set<String> expandSeg(Set<MarketSegment> mktSeg){
+        
         Set<String> seg= new HashSet<String>();
         seg.add("FYL");
         seg.add("FYH");
@@ -211,16 +214,16 @@ public class World {
         }
         if(gender!=null){
             if(gender){ //gender-female... remove all male
-                if(seg.contains("FYL")){seg.remove("FYL");}
-                if(seg.contains("FOL")){seg.remove("FOL");}
-                if(seg.contains("FYH")){seg.remove("FYH");}
-                if(seg.contains("FOH")){seg.remove("FOH");}
-            }
-            else if(!gender){ //gender-male... remove all female
                 if(seg.contains("MYL")){seg.remove("MYL");}
                 if(seg.contains("MOL")){seg.remove("MOL");}
                 if(seg.contains("MYH")){seg.remove("MYH");}
                 if(seg.contains("MOH")){seg.remove("MOH");}
+            }
+            else if(!gender){ //gender-male... remove all female
+                if(seg.contains("FYL")){seg.remove("FYL");}
+                if(seg.contains("FOL")){seg.remove("FOL");}
+                if(seg.contains("FYH")){seg.remove("FYH");}
+                if(seg.contains("FOH")){seg.remove("FOH");}
             
             }
         }
@@ -243,6 +246,116 @@ public class World {
         return seg;
     }
 
+    public void initSegmentPopularity(){
+        Double arr[]= new Double[60];
+        for(int i=0; i<60; i++){
+            arr[i]=0.0;
+        }
+        allMkt.put("FYL", arr);
+        allMkt.put("FYH", arr);
+        allMkt.put("FOL", arr);
+        allMkt.put("FOH", arr);
+        allMkt.put("MYL", arr);
+        allMkt.put("MYH", arr);
+        allMkt.put("MOL", arr);
+        allMkt.put("MOH", arr);
+    }
+    
+    public void updateSegmentPopularity(CampaignData oppCamp){
+        
+        double reach=oppCamp.reachImps;
+        int population= getTargetedPopulation(oppCamp);
+        int duration= (int) (oppCamp.dayEnd-oppCamp.dayStart+1);
+        Set<String> segs=expandSeg(oppCamp.targetSegment);
+        for (int i=(int) oppCamp.dayStart; i<= (int) oppCamp.dayEnd; i++)
+        {
+            Iterator itr=segs.iterator();
+            while(itr.hasNext()){
+                String a=(String)itr.next();
+                //System.out.println(allMkt.get(a).length);
+                Double pop= allMkt.get(a)[i]+ reach/(population*duration);
+                allMkt.get(a)[i]=pop;
+            }
+        }
+    }
+    
+    public double getSegmentPopularity(CampaignData oppCamp){
+        //pop(s,t) for all duration and segments has been updated with the new campaign
+        //Now we need to get pop(S,T) for given campaign's market segment on a given day.
+        int population= getTargetedPopulation(oppCamp);
+        int duration= (int) (oppCamp.dayEnd-oppCamp.dayStart+1);
+        Set<String> segs=expandSeg(oppCamp.targetSegment);
+        double numerator=0.0;
+        for (int i=(int) oppCamp.dayStart; i<= (int) oppCamp.dayEnd; i++)
+        {
+            Iterator itr=segs.iterator();
+            while(itr.hasNext()){
+                String a=(String)itr.next();
+                Double pop=allMkt.get(a)[i]; //pop(s,t)
+                int age=0;
+                int gender=0;
+                int income=0;
+                if(a.charAt(0)=='F'){
+                    gender=1;
+                }
+                else if(a.charAt(0)=='M'){
+                    gender=0;
+                }
+                if(a.charAt(1)=='Y'){
+                    age=0;
+                }
+                else if(a.charAt(1)=='O'){
+                    age=1;
+                }
+                if(a.charAt(2)=='L'){
+                    income=0;
+                }
+                else if (a.charAt(2)=='H'){
+                    income=1;
+                }
+                double ppl=popData[age][gender][income]; //W(s)
+                numerator+=(ppl*pop);
+            }
+        }
+        return (numerator/(population*duration));
+    }
+    
+    public double getSegmentPopularity(CampaignData oppCamp, int day){
+        int population= getTargetedPopulation(oppCamp);
+        int duration= (int) (oppCamp.dayEnd-oppCamp.dayStart+1);
+        Set<String> segs=expandSeg(oppCamp.targetSegment);
+        double numerator=0.0;
+            Iterator itr=segs.iterator();
+            while(itr.hasNext()){
+                String a=(String)itr.next();
+                Double pop=allMkt.get(a)[day]; //pop(s,t)
+                int age=0;
+                int gender=0;
+                int income=0;
+                if(a.charAt(0)=='F'){
+                    gender=1;
+                }
+                else if(a.charAt(0)=='M'){
+                    gender=0;
+                }
+                if(a.charAt(1)=='Y'){
+                    age=0;
+                }
+                else if(a.charAt(1)=='O'){
+                    age=1;
+                }
+                if(a.charAt(2)=='L'){
+                    income=0;
+                }
+                else if (a.charAt(2)=='H'){
+                    income=1;
+                }
+                double ppl=popData[age][gender][income]; //W(s)
+                numerator+=(ppl*pop);
+            }
+        return (numerator/(population*duration));
+    }
+    
     public int getPopulationForSegment(Boolean age, Boolean gender, Boolean income){
         int pop=0;
         if (age!=null){

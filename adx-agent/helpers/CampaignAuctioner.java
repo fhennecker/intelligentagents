@@ -66,7 +66,7 @@ public class CampaignAuctioner {
     }
 
     double Gre = 1.2;
-	double cmpFactor = 0.2;
+	double cmpFactor = 0.16;
 	long cmpBidMillis;
 	int counter = 0;
 	
@@ -74,14 +74,14 @@ public class CampaignAuctioner {
     //long cmpBidMillis;
     public long bidValue(CampaignOpportunityMessage com){
         
-        Gre = 1.3-cd.count/60.0;
+        Gre = 1.25-cd.count/60.0;
         
         //int population=w.getTargetedPopulation(d.pendingCampaign);
         //System.out.println(population);
         long cmpimps = com.getReachImps();
         //long cmpBidMillis= (long)((cmpimps*0.1)*(2-(population/10000))*d.dailyNotification.getQualityScore());
- if(w.day  == 1){
-                        	cmpBidMillis = (long)(Math.ceil(cmpimps*0.1));
+ if(w.day  <= 3){
+                        	cmpBidMillis = (long)(double)(cmpimps*0.1);
                         } else{
 		if( d.currCampaign.id == d.dailyNotification.getCampaignId() && d.dailyNotification.getCostMillis() == d.currCampaign.budget){
 			cmpFactor = cmpFactor;
@@ -92,7 +92,7 @@ public class CampaignAuctioner {
 		}else {
 			cmpFactor = cmpFactor/Gre;
 		}
-        if(d.dailyNotification.getQualityScore() < 0.9){
+        if(d.dailyNotification.getQualityScore() < 1.0){
 			 cmpBidMillis = (long)(Math.ceil(cmpimps*0.1));
 			//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 		}else{
@@ -110,8 +110,18 @@ public class CampaignAuctioner {
 			//System.out.println("Day " + day + ": Campaign total budget bid (millis): " + cmpBidMillis);
 		}  
 	}
+        if((d.currCampaign.dayEnd-d.currCampaign.dayStart +1) == 10 ){
+            cmpBidMillis = (long)(0.7*cmpimps);
+        }
+        if(shouldBid() == false){
+            cmpBidMillis = (long)(1.0*cmpimps);
+        }
+        
+        //cmpBidMillis=(long)(Math.ceil(cmpBidMillis/d.dailyNotification.getQualityScore());
+        
 		System.out.println("Day " + w.day + ": Campaign total budget bid (millis): " + cmpBidMillis + "factor" + cmpFactor + "Greed" +Gre);
 
+        
 //***************************************************************************Add the counter to the file
 	   File camLog= new File("camLog.txt");
        FileWriter fileWriter;// = new FileWriter(ucsLog,true);
@@ -142,20 +152,10 @@ public class CampaignAuctioner {
         for (int i=(int) d.pendingCampaign.dayStart; i<=(int)d.pendingCampaign.dayEnd; i++){
             for (int j=0; j<d.campTrack.get(i).size(); j++){
                 CampaignData camp= d.campaigns.get(d.campTrack.get(i).get(j));
-                /*if (d.pendingCampaign.targetSegment.containsAll(camp.targetSegment)){ //camp superset of pendingCamp
-                    overlap++;
-                }
-                else if (camp.targetSegment.containsAll(d.pendingCampaign.targetSegment)){ //pendingCamp superset of camp
-                    overlap=overlap+0.5;
-                }
-                else if ()
-                if(overlap>=2){
-                    return false;
-                }*/
                 Set<String> newCamp= w.expandSeg(d.pendingCampaign.targetSegment);
                 Set<String> oldCamp= w.expandSeg(camp.targetSegment);
                 newCamp.retainAll(oldCamp);
-                if(newCamp.size()>2)
+                if(newCamp.size()>=1)
                     return false;
             }
         }

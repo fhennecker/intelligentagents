@@ -1,0 +1,106 @@
+07/12 02:54:00 FINE sim.Admin|Log for simulation 101 started
+************************************************************
+* Log for simulation 101 started
+************************************************************
+
+
+07/12 02:54:00 INFO sim.TACAdxSimulation|TACAA Simulation 101 is setting up...
+07/12 02:54:00 INFO sim.TACAdxSimulation|Created Adx Agent
+07/12 02:54:00 INFO sim.TACAdxSimulation|Created Demand Agent
+07/12 02:54:00 FINE generators.PopulationUserGenerator|Generated 10000 tau.tac.adx.users.AdxUsers
+07/12 02:54:00 FINE sim.ExternalAgent|sample setup with address adv1
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork simulationSetup
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-2 simulationSetup
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-3 simulationSetup
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-4 simulationSetup
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-5 simulationSetup
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-6 simulationSetup
+07/12 02:54:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-7 simulationSetup
+07/12 02:54:00 INFO publisher.AdxPublisherReportManagerImpl|AdxQueryReportManager created.
+07/12 02:54:00 INFO adn.AdNetworkReportManagerImpl|AdxQueryReportManager created.
+07/12 02:54:00 INFO agents.DemandAgent|setting up...
+07/12 02:54:00 FINE agents.DemandAgent|Finished setup
+07/12 02:54:01 INFO sim.Simulation|***** START OF TIME 0 *****
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=974940224, reachImps=1932, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, YOUNG], videoCoef=2.4875529454132264, mobileCoef=2.3663592078161098, budgetMillis=1932, advertiser=adv1]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@5ed42c4f
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=710805587, reachImps=7020, dayStart=1, dayEnd=5, targetSegment=[FEMALE, OLD], videoCoef=2.089150716947751, mobileCoef=2.083771362606586, budgetMillis=7020, advertiser=DummyAdnetwork]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@5bb97cb7
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=415136065, reachImps=9077, dayStart=1, dayEnd=5, targetSegment=[LOW_INCOME, MALE], videoCoef=2.992045396315493, mobileCoef=2.3390926878833844, budgetMillis=9077, advertiser=DummyAdnetwork-2]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@67f7984d
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1026623600, reachImps=5590, dayStart=1, dayEnd=5, targetSegment=[FEMALE, YOUNG], videoCoef=2.538673740432969, mobileCoef=1.5544126202829185, budgetMillis=5590, advertiser=DummyAdnetwork-3]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@2dfd97a5
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1180862250, reachImps=10490, dayStart=1, dayEnd=5, targetSegment=[LOW_INCOME, OLD], videoCoef=2.5300725695198922, mobileCoef=2.3852951238648012, budgetMillis=10490, advertiser=DummyAdnetwork-4]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@1d0c4a5b
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=684438274, reachImps=3312, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, MALE], videoCoef=2.4192887297613375, mobileCoef=1.7189727102016432, budgetMillis=3312, advertiser=DummyAdnetwork-5]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@69ca5901
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1002686661, reachImps=1657, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.3556689367192614, mobileCoef=1.7358072655195782, budgetMillis=1657, advertiser=DummyAdnetwork-6]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@44e21374
+07/12 02:54:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=826604361, reachImps=1932, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, YOUNG], videoCoef=2.0543154092221156, mobileCoef=2.00705499360266, budgetMillis=1932, advertiser=DummyAdnetwork-7]
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@afdae31
+07/12 02:54:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@2fddda4b
+07/12 02:54:01 INFO agents.DemandAgent|Day 0 :Notifying new campaign opportunity: CampaignImpl [id=2070943095, reachImps=35048, dayStart=2, dayEnd=11, targetSegment=[LOW_INCOME, FEMALE], videoCoef=2.8680129590423977, mobileCoef=1.5681641841018985, budgetMillis=0, advertiser=null]
+07/12 02:54:01 INFO sim.Simulation|***** START OF TIME 0 COMPLETE *****
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.18311129251037928 Cmp ID: 2070943095 Cmp Bid: 22955
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.17149025785425445 Cmp ID: 2070943095 Cmp Bid: 30940
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.15343679506932406 Cmp ID: 2070943095 Cmp Bid: 15570
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.13695675101044197 Cmp ID: 2070943095 Cmp Bid: 23752
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.1001895759315479 Cmp ID: 2070943095 Cmp Bid: 2080
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.1428928937620923 Cmp ID: 2070943095 Cmp Bid: 18714
+07/12 02:54:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.16144202260744386 Cmp ID: 2070943095 Cmp Bid: 14060
+07/12 02:54:04 WARNING sim.TACAdxSimulation|recovering agent sample
+07/12 02:54:04 INFO server.TACTChannel|user sample logged in as sample@tact-2 with version 0.9.6 from 127.0.0.1
+07/12 02:54:08 SEVERE tact.TACTConnection|sample@tact-2: closed from other side
+07/12 02:54:10 INFO sim.Simulation|***** START OF TIME 1 *****
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #710805587 at price 7.02
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #710805587 at price 7.02
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-2
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #415136065 at price 9.077
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #415136065 at price 9.077
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-3
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1026623600 at price 5.59
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1026623600 at price 5.59
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-4
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1180862250 at price 10.49
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1180862250 at price 10.49
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-5
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #684438274 at price 3.312
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #684438274 at price 3.312
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-6
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1002686661 at price 1.657
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1002686661 at price 1.657
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-7
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #826604361 at price 1.932
+07/12 02:54:10 INFO demand.CampaignImpl|Applied daily limit for campaign #826604361 at price 1.932
+07/12 02:54:10 INFO agents.DemandAgent|Day 1 : Auction pending campaign: CampaignImpl [id=2070943095, reachImps=35048, dayStart=2, dayEnd=11, targetSegment=[LOW_INCOME, FEMALE], videoCoef=2.8680129590423977, mobileCoef=1.5681641841018985, budgetMillis=0, advertiser=null]
+07/12 02:54:10 FINE agents.DemandAgent|Day 1 :Quality Ratings... Quality Retings DummyAdnetwork-5: 1.0DummyAdnetwork-4: 1.0DummyAdnetwork-3: 1.0adv1: 1.0DummyAdnetwork-2: 1.0DummyAdnetwork-7: 1.0DummyAdnetwork-6: 1.0DummyAdnetwork: 1.0
+07/12 02:54:10 FINE agents.DemandAgent|Day 1 :Reporting campaign auction results... CampaignImpl [id=2070943095, reachImps=35048, dayStart=2, dayEnd=11, targetSegment=[LOW_INCOME, FEMALE], videoCoef=2.8680129590423977, mobileCoef=1.5681641841018985, budgetMillis=15570, advertiser=DummyAdnetwork-7]
+07/12 02:54:10 FINE agents.DemandAgent|Day 1 :Reporting UCS auction results... DummyAdnetwork-5[efday=1, level=1.0, price=0.0] DummyAdnetwork-4[efday=1, level=1.0, price=0.0] DummyAdnetwork-3[efday=1, level=1.0, price=0.0] adv1[efday=1, level=1.0, price=0.0] DummyAdnetwork-2[efday=1, level=1.0, price=0.0] DummyAdnetwork-7[efday=1, level=1.0, price=0.0] DummyAdnetwork-6[efday=1, level=1.0, price=0.0] DummyAdnetwork[efday=1, level=1.0, price=0.0] 
+07/12 02:54:10 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@53d212cb event: tau.tac.adx.messages.UserClassificationServiceNotification@28709707
+07/12 02:54:10 INFO agents.DemandAgent|Day 1 :Notifying new campaign opportunity: CampaignImpl [id=1071870773, reachImps=2652, dayStart=3, dayEnd=7, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.655065272804984, mobileCoef=2.133764226029607, budgetMillis=0, advertiser=null]
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for amazon
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnn
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnet
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for bestbuy
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for webmd
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for fox
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|##################################### S-Invoking users activity
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: adv1
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: adv1 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: adv1 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-2 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-2 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-3 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-3 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-4 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-4 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-5 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-5 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-6 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-6 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-7 to the event bus
+07/12 02:54:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-7 to the event bus
+07/12 02:54:10 FINE agents.DefaultAdxUserManager|##################################### E-Invoking users activity - total time in millis: 312
+07/12 02:54:10 INFO sim.Simulation|***** START OF TIME 1 COMPLETE *****

@@ -1,0 +1,73 @@
+03/12 10:00:37 INFO file.FileDatabase|infodb: database opened as /Users/leelaprabhu/Desktop/SOUTHAMPTON/Intelligent Agents/assignment/adx-server/infodb
+03/12 10:00:37 INFO common.BlockingViewerServer|viewer server started at *:4042
+03/12 10:00:38 INFO sim.Admin|adding manager for simulation type tac13adx
+03/12 10:00:38 INFO server.TACTGateway|TACT Server started at *:6502
+03/12 10:00:41 INFO server.TACTChannel|user trial1 logged in as trial1@tact-1 with version 0.9.6 from 127.0.0.1
+03/12 10:00:41 INFO sim.Admin|created simulation 41
+03/12 10:00:41 INFO server.TACTChannel|user ibm logged in as ibm@tact-2 with version 0.9.6 from 127.0.0.1
+03/12 10:01:00 FINE sim.Admin|Entering log for simulation 37
+************************************************************
+* Entering log for simulation 37
+************************************************************
+
+
+03/12 10:11:01 INFO is.TACAAResultManager|generating results for simulation 37 to public_html/localhost/history/37/index.html
+03/12 10:12:00 FINE sim.Admin|Entering log for simulation 38
+************************************************************
+* Entering log for simulation 38
+************************************************************
+
+
+03/12 10:22:00 INFO sim.Admin|created simulation 43
+03/12 10:22:00 INFO is.TACAAResultManager|generating results for simulation 38 to public_html/localhost/history/38/index.html
+03/12 10:23:00 FINE sim.Admin|Entering log for simulation 39
+************************************************************
+* Entering log for simulation 39
+************************************************************
+
+
+03/12 10:33:00 INFO is.TACAAResultManager|generating results for simulation 39 to public_html/localhost/history/39/index.html
+03/12 10:34:00 FINE sim.Admin|Entering log for simulation 40
+************************************************************
+* Entering log for simulation 40
+************************************************************
+
+
+03/12 10:44:00 INFO is.TACAAResultManager|generating results for simulation 40 to public_html/localhost/history/40/index.html
+03/12 10:45:00 FINE sim.Admin|Entering log for simulation 41
+************************************************************
+* Entering log for simulation 41
+************************************************************
+
+
+03/12 10:55:00 INFO is.TACAAResultManager|generating results for simulation 41 to public_html/localhost/history/41/index.html
+03/12 10:56:00 FINE sim.Admin|Entering log for simulation 42
+************************************************************
+* Entering log for simulation 42
+************************************************************
+
+
+03/12 11:06:00 INFO is.TACAAResultManager|generating results for simulation 42 to public_html/localhost/history/42/index.html
+03/12 11:07:00 FINE sim.Admin|Entering log for simulation 43
+************************************************************
+* Entering log for simulation 43
+************************************************************
+
+
+03/12 11:17:00 INFO is.TACAAResultManager|generating results for simulation 43 to public_html/localhost/history/43/index.html
+03/12 11:18:00 FINE sim.Admin|Entering log for simulation 44
+************************************************************
+* Entering log for simulation 44
+************************************************************
+
+
+03/12 11:28:01 INFO is.TACAAResultManager|generating results for simulation 44 to public_html/localhost/history/44/index.html
+03/12 11:29:00 FINE sim.Admin|Entering log for simulation 45
+************************************************************
+* Entering log for simulation 45
+************************************************************
+
+
+03/12 11:55:30 INFO is.TACAAResultManager|generating results for simulation 45 to public_html/localhost/history/45/index.html
+03/12 12:01:25 SEVERE tact.TACTConnection|trial1@tact-1: closed from other side
+03/12 12:01:28 SEVERE tact.TACTConnection|ibm@tact-2: closed from other side

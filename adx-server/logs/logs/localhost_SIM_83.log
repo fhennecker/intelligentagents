@@ -1,0 +1,270 @@
+06/12 23:56:00 FINE sim.Admin|Log for simulation 83 started
+************************************************************
+* Log for simulation 83 started
+************************************************************
+
+
+06/12 23:56:00 INFO sim.TACAdxSimulation|TACAA Simulation 83 is setting up...
+06/12 23:56:00 INFO sim.TACAdxSimulation|Created Adx Agent
+06/12 23:56:00 INFO sim.TACAdxSimulation|Created Demand Agent
+06/12 23:56:00 FINE generators.PopulationUserGenerator|Generated 10000 tau.tac.adx.users.AdxUsers
+06/12 23:56:00 FINE sim.ExternalAgent|agent00 setup with address adv1
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork simulationSetup
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-2 simulationSetup
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-3 simulationSetup
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-4 simulationSetup
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-5 simulationSetup
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-6 simulationSetup
+06/12 23:56:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-7 simulationSetup
+06/12 23:56:00 INFO publisher.AdxPublisherReportManagerImpl|AdxQueryReportManager created.
+06/12 23:56:00 INFO adn.AdNetworkReportManagerImpl|AdxQueryReportManager created.
+06/12 23:56:00 INFO agents.DemandAgent|setting up...
+06/12 23:56:00 FINE agents.DemandAgent|Finished setup
+06/12 23:56:01 INFO sim.Simulation|***** START OF TIME 0 *****
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1052601699, reachImps=6507, dayStart=1, dayEnd=5, targetSegment=[OLD, MALE], videoCoef=2.776161121104255, mobileCoef=1.9202449569444553, budgetMillis=6507, advertiser=adv1]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@3799f679
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1444058223, reachImps=5882, dayStart=1, dayEnd=5, targetSegment=[YOUNG, MALE], videoCoef=2.6714976078405988, mobileCoef=2.2179873939502808, budgetMillis=5882, advertiser=DummyAdnetwork]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@25c209fd
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1492389353, reachImps=1932, dayStart=1, dayEnd=5, targetSegment=[YOUNG, HIGH_INCOME], videoCoef=2.974353566738753, mobileCoef=1.6952807655408704, budgetMillis=1932, advertiser=DummyAdnetwork-2]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@20a612b0
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1649756967, reachImps=9540, dayStart=1, dayEnd=5, targetSegment=[YOUNG, LOW_INCOME], videoCoef=2.390947855915843, mobileCoef=2.2521370484740624, budgetMillis=9540, advertiser=DummyAdnetwork-3]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@57ed2b71
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=797900576, reachImps=1932, dayStart=1, dayEnd=5, targetSegment=[YOUNG, HIGH_INCOME], videoCoef=2.5634567309786958, mobileCoef=2.273447651099048, budgetMillis=1932, advertiser=DummyAdnetwork-4]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@3fad4bf3
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=2003379026, reachImps=1657, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, FEMALE], videoCoef=2.9252161049941767, mobileCoef=1.6866797380857022, budgetMillis=1657, advertiser=DummyAdnetwork-5]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@49e1386d
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=290371982, reachImps=5590, dayStart=1, dayEnd=5, targetSegment=[YOUNG, FEMALE], videoCoef=2.5136750836069006, mobileCoef=2.0198720006663597, budgetMillis=5590, advertiser=DummyAdnetwork-6]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@44698a87
+06/12 23:56:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=2049196779, reachImps=10490, dayStart=1, dayEnd=5, targetSegment=[OLD, LOW_INCOME], videoCoef=2.926136328473574, mobileCoef=2.0807212928986805, budgetMillis=10490, advertiser=DummyAdnetwork-7]
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@3a463f92
+06/12 23:56:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@5e20739d
+06/12 23:56:01 INFO agents.DemandAgent|Day 0 :Notifying new campaign opportunity: CampaignImpl [id=1444276076, reachImps=6739, dayStart=2, dayEnd=4, targetSegment=[OLD, FEMALE], videoCoef=2.128011985110845, mobileCoef=1.8837519821124276, budgetMillis=0, advertiser=null]
+06/12 23:56:01 INFO sim.Simulation|***** START OF TIME 0 COMPLETE *****
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.17294259484714425 Cmp ID: 1444276076 Cmp Bid: 903
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.13630490397720335 Cmp ID: 1444276076 Cmp Bid: 4642
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.1337219273563577 Cmp ID: 1444276076 Cmp Bid: 2839
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.1900179356210135 Cmp ID: 1444276076 Cmp Bid: 6368
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.19346490838058722 Cmp ID: 1444276076 Cmp Bid: 6652
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.12922792430917304 Cmp ID: 1444276076 Cmp Bid: 230
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.19694201097990222 Cmp ID: 1444276076 Cmp Bid: 970
+06/12 23:56:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from adv1 : UCS Bid: 0.1 Cmp ID: 1444276076 Cmp Bid: 676
+06/12 23:56:10 INFO sim.Simulation|***** START OF TIME 1 *****
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1444058223 at price 5.882
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1444058223 at price 5.882
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-2
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1492389353 at price 1.932
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1492389353 at price 1.932
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-3
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1649756967 at price 9.54
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1649756967 at price 9.54
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-4
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #797900576 at price 1.932
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #797900576 at price 1.932
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-5
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #2003379026 at price 1.657
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #2003379026 at price 1.657
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-6
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #290371982 at price 5.59
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #290371982 at price 5.59
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: DummyAdnetwork-7
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #2049196779 at price 10.49
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #2049196779 at price 10.49
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Initialized AdxQueryBid for advertiser: adv1
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1052601699 at price 0.2995462622131701
+06/12 23:56:10 INFO demand.CampaignImpl|Applied daily limit for campaign #1052601699 at price 0.2995462622131701
+06/12 23:56:10 INFO agents.DemandAgent|Day 1 : Auction pending campaign: CampaignImpl [id=1444276076, reachImps=6739, dayStart=2, dayEnd=4, targetSegment=[OLD, FEMALE], videoCoef=2.128011985110845, mobileCoef=1.8837519821124276, budgetMillis=0, advertiser=null]
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Quality Ratings... Quality Retings DummyAdnetwork-5: 1.0DummyAdnetwork-4: 1.0DummyAdnetwork-3: 1.0adv1: 1.0DummyAdnetwork-2: 1.0DummyAdnetwork-7: 1.0DummyAdnetwork-6: 1.0DummyAdnetwork: 1.0
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Reporting campaign auction results... CampaignImpl [id=1444276076, reachImps=6739, dayStart=2, dayEnd=4, targetSegment=[OLD, FEMALE], videoCoef=2.128011985110845, mobileCoef=1.8837519821124276, budgetMillis=6652, advertiser=DummyAdnetwork-5]
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Reporting UCS auction results... DummyAdnetwork-5[efday=1, level=1.0, price=0.0] DummyAdnetwork-4[efday=1, level=1.0, price=0.0] DummyAdnetwork-3[efday=1, level=1.0, price=0.0] adv1[efday=1, level=1.0, price=0.0] DummyAdnetwork-2[efday=1, level=1.0, price=0.0] DummyAdnetwork-7[efday=1, level=1.0, price=0.0] DummyAdnetwork-6[efday=1, level=1.0, price=0.0] DummyAdnetwork[efday=1, level=1.0, price=0.0] 
+06/12 23:56:10 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@5bc23f3e
+06/12 23:56:10 INFO agents.DemandAgent|Day 1 :Notifying new campaign opportunity: CampaignImpl [id=1586299665, reachImps=1980, dayStart=3, dayEnd=7, targetSegment=[YOUNG, LOW_INCOME, FEMALE], videoCoef=2.897806129980436, mobileCoef=1.5882669016015485, budgetMillis=0, advertiser=null]
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnn
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for sears
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnet
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for ehow
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for wallmart
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|Updating reserve prices for msn
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|##################################### S-Invoking users activity
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: adv1 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: adv1 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-2 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-2 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-3 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-3 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-4 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-4 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-5 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-5 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-6 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-6 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registering AdxQueryBid for advertiser: DummyAdnetwork-7 to the event bus
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Registered AdxQueryBid for advertiser: DummyAdnetwork-7 to the event bus
+06/12 23:56:10 SEVERE demand.CampaignImpl|Campaign #1052601699 impressed while over limit. Current cost: 0.2995672251519136 Budget limit: 0.2995462622131701
+06/12 23:56:10 INFO agents.DemandAgent|Posting DIRECTLY to CampaignLimitReached to the event bus for campaign #1052601699 advertiser name: adv1
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-3
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-7
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is adv1
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-6
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-2
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-5
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-4
+06/12 23:56:10 INFO agents.DemandAgent|Posting CampaignLimitReached to the event bus for campaign #1052601699 advertiser name: adv1
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-5
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-6
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-7
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-2
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-4
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is adv1
+06/12 23:56:10 SEVERE tracker.AdxBidTrackerImpl|Limit request was already sent today to stop bidding for campaign #1052601699 due to limit
+06/12 23:56:10 INFO tracker.AdxBidTrackerImpl|Accepted request to stop bidding for campaign #1052601699 due to limit. My name is DummyAdnetwork-3
+06/12 23:56:10 FINE agents.DefaultAdxUserManager|##################################### E-Invoking users activity - total time in millis: 367
+06/12 23:56:10 INFO sim.Simulation|***** START OF TIME 1 COMPLETE *****
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.11857705070789906 Cmp ID: 1586299665 Cmp Bid: 1265
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.10944904572277706 Cmp ID: 1586299665 Cmp Bid: 1032
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.1149783981617113 Cmp ID: 1586299665 Cmp Bid: 1118
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.10958454233721862 Cmp ID: 1586299665 Cmp Bid: 705
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.11093129846309509 Cmp ID: 1586299665 Cmp Bid: 1801
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.16061432300575756 Cmp ID: 1586299665 Cmp Bid: 1655
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.1071902083916502 Cmp ID: 1586299665 Cmp Bid: 1094
+06/12 23:56:10 FINE agents.DemandAgent|Day 1 :Got AdNetBidMessage from adv1 : UCS Bid: 0.1 Cmp ID: 1586299665 Cmp Bid: 199
+06/12 23:56:20 INFO sim.Simulation|***** START OF TIME 2 *****
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1444058223 at price 5.882
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1444058223 at price 5.882
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1492389353 at price 1.932
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1492389353 at price 1.932
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1649756967 at price 9.54
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1649756967 at price 9.54
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #797900576 at price 1.932
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #797900576 at price 1.932
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1444276076 at price 6.652
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1444276076 at price 6.652
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #290371982 at price 5.59
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #290371982 at price 5.59
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #2049196779 at price 10.49
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #2049196779 at price 10.49
+06/12 23:56:20 INFO tracker.AdxBidTrackerImpl|Requested daily limit for campaign #1052601699 at price 0.5483376586647787
+06/12 23:56:20 INFO demand.CampaignImpl|Applied daily limit for campaign #1052601699 at price 0.5483376586647787
+06/12 23:56:20 INFO agents.DemandAgent|Day 2 : Auction pending campaign: CampaignImpl [id=1586299665, reachImps=1980, dayStart=3, dayEnd=7, targetSegment=[YOUNG, LOW_INCOME, FEMALE], videoCoef=2.897806129980436, mobileCoef=1.5882669016015485, budgetMillis=0, advertiser=null]
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Quality Ratings... Quality Retings DummyAdnetwork-5: 1.0DummyAdnetwork-4: 1.0DummyAdnetwork-3: 1.0adv1: 1.0DummyAdnetwork-2: 1.0DummyAdnetwork-7: 1.0DummyAdnetwork-6: 1.0DummyAdnetwork: 1.0
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Reporting campaign auction results... CampaignImpl [id=1586299665, reachImps=1980, dayStart=3, dayEnd=7, targetSegment=[YOUNG, LOW_INCOME, FEMALE], videoCoef=2.897806129980436, mobileCoef=1.5882669016015485, budgetMillis=705, advertiser=adv1]
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Reporting UCS auction results... DummyAdnetwork-5[efday=2, level=0.9, price=0.17101614205891214] DummyAdnetwork-4[efday=2, level=0.81, price=0.14008350182618684] DummyAdnetwork-3[efday=2, level=0.5904900000000002, price=0.07630779702532361] adv1[efday=2, level=0.47829690000000014, price=0.0] DummyAdnetwork-2[efday=2, level=0.6561000000000001, price=0.08773495653850631] DummyAdnetwork-7[efday=2, level=1.0, price=0.19346490838058722] DummyAdnetwork-6[efday=2, level=0.5314410000000002, price=0.05314410000000002] DummyAdnetwork[efday=2, level=0.7290000000000001, price=0.09936627499938125] 
+06/12 23:56:20 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@5ed473e7 event: tau.tac.adx.messages.UserClassificationServiceNotification@7cbd6d8f
+06/12 23:56:20 INFO agents.DemandAgent|Day 2 :Notifying new campaign opportunity: CampaignImpl [id=156447563, reachImps=7952, dayStart=4, dayEnd=8, targetSegment=[HIGH_INCOME], videoCoef=2.9742531921211732, mobileCoef=2.372368862016068, budgetMillis=0, advertiser=null]
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnn
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=video] to 0.12714487426528387
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=text] to 0.06047453046114494
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=video] to 0.13947070867340378
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=text] to 0.062065499265547094
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=video] to 0.06178275677660542
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=video] to 0.062360216659641726
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=text] to 0.1300879842575124
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=text] to 0.06211083262648651
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=text] to 0.13939871857846128
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=video] to 0.063196933359403
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for sears
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=video] to 0.13437498205074716
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=video] to 0.13383261730350407
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=text] to 0.06036369780913186
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=video] to 0.061718387489892175
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=text] to 0.13687795175635264
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=text] to 0.061758773087044916
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=text] to 0.13420488042318168
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=text] to 0.062421339045775494
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for cnet
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=text] to 0.06213329550200104
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=video] to 0.13997271226879354
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=text] to 0.060289057754860785
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=text] to 0.06148139892058134
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=video] to 0.06222494853319263
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=video] to 0.06035431627488327
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=text] to 0.13852813077502238
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=text] to 0.06305176656931405
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=text] to 0.13982106301247144
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=text] to 0.06132042383594924
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=video] to 0.06315191467331642
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for ehow
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=video] to 0.12761875002040135
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=video] to 0.13849902748690884
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=text] to 0.062103525609523855
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=video] to 0.061321235418923904
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=video] to 0.060209080559579735
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=text] to 0.12499089662129459
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=text] to 0.06180249798229209
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=text] to 0.13895187768315978
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for wallmart
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=video] to 0.13642183380852088
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=text] to 0.06328400158240181
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=text] to 0.06051486133797798
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=video] to 0.1399475016971944
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=text] to 0.06040255265058249
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=text] to 0.06220304485263996
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=video] to 0.06195027719852783
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=video] to 0.062199980694733245
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=text] to 0.13829579401047914
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=text] to 0.06327669542472197
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=text] to 0.1384229405614017
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=text] to 0.06220928010920492
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=video] to 0.06298387968886553
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updating reserve prices for msn
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=video] to 0.13395427788627873
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=text] to 0.06315259537942808
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=text] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=video] to 0.1334916023176927
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, HIGH_INCOME, FEMALE], adType=text] to 0.060166923391224196
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=text] to 0.06219546923527357
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, HIGH_INCOME, FEMALE], adType=video] to 0.061959999066263226
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, LOW_INCOME, FEMALE], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=video] to 0.063166291882649
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=video] to 0.06
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, HIGH_INCOME], adType=text] to 0.13432110937330605
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, LOW_INCOME, FEMALE], adType=text] to 0.063069789521813
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[OLD, MALE, LOW_INCOME], adType=text] to 0.1395495361221284
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, HIGH_INCOME], adType=text] to 0.0606550204239584
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|Updated reserve price for ReservePriceType [marketSegment=[YOUNG, MALE, LOW_INCOME], adType=video] to 0.06280406859137354
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|##################################### S-Invoking users activity
+06/12 23:56:20 FINE agents.DefaultAdxUserManager|##################################### E-Invoking users activity - total time in millis: 224
+06/12 23:56:20 INFO sim.Simulation|***** START OF TIME 2 COMPLETE *****
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.13029526177065473 Cmp ID: 156447563 Cmp Bid: 5834
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.10915068953928649 Cmp ID: 156447563 Cmp Bid: 2144
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.11449394045208808 Cmp ID: 156447563 Cmp Bid: 7077
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.16852873630371443 Cmp ID: 156447563 Cmp Bid: 7855
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.17490370548771172 Cmp ID: 156447563 Cmp Bid: 2662
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.134779775585827 Cmp ID: 156447563 Cmp Bid: 6491
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.1587675682068349 Cmp ID: 156447563 Cmp Bid: 1940
+06/12 23:56:20 FINE agents.DemandAgent|Day 2 :Got AdNetBidMessage from adv1 : UCS Bid: 0.1 Cmp ID: 156447563 Cmp Bid: 7872

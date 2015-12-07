@@ -101,17 +101,55 @@ public class ImpressionsAuctioner {
                         else if (query.getDevice() == Device.mobile) {
                             adTypeFactor=d.currCampaign.videoCoef;
                         }
-                        double rbid = 500.0+200.0*factor+100.0*devFactor+100.0*adTypeFactor;
+                        //double rbid = 500.0+200.0*factor+100.0*devFactor+100.0*adTypeFactor;
+                        //double rbid= 1000.0*w.getSegmentPopularity(d.currCampaign)*d.currCampaign.budget/d.currCampaign.reachImps;
+                        double budgetLeft=d.currCampaign.budget;
+                        double rbid=0.0;
+                        double factorImp=0.0;
+                        double eta=(d.currCampaign.reachImps- d.currCampaign.impsTogo())/d.currCampaign.reachImps;
+                        if(w.day<=1){
+                            rbid=100.0;
+                        }
+                        else{
+                            if(d.impressionStats.get(w.day-1).get(d.currCampaign.id) != null){
+                                budgetLeft=d.currCampaign.budget-d.impressionStats.get(w.day-1).get(d.currCampaign.id).getCost();
+                                System.out.print("-------------------------------");
+                                System.out.print(d.impressionStats.get(w.day-1).get(d.currCampaign.id).getCost());
+                            }
+                            factorImp= decideImpPrice(d.currCampaign.impsTogo(),budgetLeft,eta);
+                            rbid= 1000.0*w.getSegmentPopularity(d.currCampaign)*factorImp;//budgetLeft/d.currCampaign.impsTogo();
+                            
+                            if(((w.day+1)==(d.currCampaign.dayEnd))&&(eta<1.0)){
+                                rbid = 47.0;
+                            }
+                            if((d.currCampaign.dayEnd - d.currCampaign.dayStart + 1) == 10){
+                                rbid = 10.0;
+                            }
+                        }
                         
+                       // rbid=rbid*0.8+0.1*factor+0.5*(adTypeFactor+devFactor);
+                        System.out.print("[[[[[[[[");
+                        System.out.print(rbid);
+                        System.out.print("]]]]]]]]");
+                        System.out.print(1000.0*w.getSegmentPopularity(d.currCampaign));
+                        System.out.print("[[[[[[[[");
+                        System.out.print(factorImp);
+                        System.out.println("]]]]]]]]");
+                        //System.out.print("[[[[[[[[");
+                        //System.out.print(d.impressionStats);
+                        //System.out.print("]]]]]]]]");
+                        //System.out.print("[[[[[[[[");
+                        //System.out.print(w.getSegmentPopularity(d.currCampaign));
+                        //System.out.println("]]]]]]]]");
                         double doneImp= d.currCampaign.reachImps-d.currCampaign.impsTogo();
                         double impPerDay=d.currCampaign.reachImps/(d.currCampaign.dayEnd-d.currCampaign.dayStart+1);
                         //double goal= (w.day-currCampaign.dayStart)*impPerDay;
                         //double impFactor= 1+(goal-doneImp)/currCampaign.reachImps;
                         
-                        if((doneImp*1.2<impPerDay*(w.day-d.currCampaign.dayStart+1))&&(dayBiddingFor>d.currCampaign.dayStart)){
+                        /*if((doneImp*1.2<impPerDay*(w.day-d.currCampaign.dayStart+1))&&(dayBiddingFor>d.currCampaign.dayStart)){
                         	System.out.println("QUALITY SCORE LOW!!!");
                         	rbid=1000.0;
-                        }
+                        }*/
                         
                         totalPrice=totalPrice+factor*rbid;
                         totalFactor=totalFactor+factor;
@@ -131,8 +169,17 @@ public class ImpressionsAuctioner {
                         }
                         d.bidBundle.addQuery(query, rbid, new Ad(null),
                                 d.currCampaign.id, 1);
-                        int weight=(int)Math.ceil(d.currCampaign.budget/d.currCampaign.reachImps*Math.pow(d.currCampaign.impsTogo()/(d.currCampaign.dayEnd-dayBiddingFor+1),2.0));
-                        d.bidBundle.getEntry(query).setWeight(weight);
+                        double weight=1;
+                        //int weight=(int)Math.ceil(d.currCampaign.budget/d.currCampaign.reachImps)*Math.pow(d.currCampaign.impsTogo()/(d.currCampaign.dayEnd-dayBiddingFor+1),2.0);
+                        //weight= (double)((d.currCampaign.budget/d.currCampaign.reachImps)*(Math.pow(((d.currCampaign.impsTogo()/d.currCampaign.reachImps)/(d.currCampaign.dayEnd-dayBiddingFor+1)), 2.0))));
+                        weight= (double)((d.currCampaign.budget/d.currCampaign.reachImps)*(d.currCampaign.impsTogo()/d.currCampaign.reachImps));
+                                        // (Math.pow(((d.currCampaign.impsTogo()/d.currCampaign.reachImps)/(d.currCampaign.dayEnd-dayBiddingFor+1)), 1.0)));
+                        int weightInt = (int)(10000000.0*weight);
+                        if(w.day == 0){
+                            weightInt = 1;
+                        }
+                        System.out.println("======================================================weight" + weightInt);
+                        d.bidBundle.getEntry(query).setWeight(weightInt);
                     }
                 }
 
@@ -150,8 +197,62 @@ public class ImpressionsAuctioner {
         }
         d.avgPrice=totalPrice/totalFactor;
     }
+    
+   /* public double estimateImpCost(int days){
+        // Regress on price per impression on given number of days before today
+        days = Math.min(days, w.day-1);
+        double[][] training = new double[days][2];
+        int i = 0;
+        System.out.print("Mean price per imps : ");
+        for (int day=w.day-days-1; day<w.day-1; day++) {
+            training[i][0] = day;
+            training[i][1] = d.meanPricePerImp(day);
+            i+=1;
+            System.out.print(d.meanPricePerImp(day));
+            System.out.print(" ");
+        }
+        Regressor r = new Regressor(training);
+        System.out.print(", Prediction : ");
+        double[] toPredict = new double[1];
+        toPredict[0] = w.day;
+        System.out.println(r.predict(toPredict));
+        
+        return r.predict(toPredict);
+    }*/
+    
+    public double decideImpPrice(double reach, double budget, double eta){
+        double budgetNew= budget*0.85;
+        if((budget<0.2)&&(reach<200)){
+            budgetNew= 1*budget;
+        }
+        if((((w.day+1)==(d.currCampaign.dayEnd-1))||((w.day+1)==(d.currCampaign.dayEnd)))&&(eta<1.0)){
+            budgetNew=50.0*budget;
+        }
+        if(((w.day+1)==(d.currCampaign.dayEnd))&&(eta<1.0)){
+            budgetNew=100.0;
+            System.out.println("*****************************************************URGENT BUDGET!!!!!" + budgetNew/reach);
+        }
+        System.out.println("*****************************************************" + budgetNew/reach);
+        return (budgetNew/reach);
+    }
+    
+   /* public double decideImpPrice(double reach, double budget, double eta){
+        double budgetNew= budget*0.87;
+        if((budget<0.3)&&(reach<500)){
+            budgetNew= 1*budget;
+        }
+        if((((w.day+1)==(d.currCampaign.dayEnd-1))||((w.day+1)==(d.currCampaign.dayEnd)))&&(eta<1.0)){
+            budgetNew=3.0*budget;
+        }
+        if(((w.day+1)==(d.currCampaign.dayEnd))&&(eta<1.0)){
+            budgetNew=5.0*budget;
+             System.out.println("*****************************************************URGENT BUDGET!!!!!" + budgetNew/reach);
+        }
+        System.out.println("*****************************************************" + budgetNew/reach);
+        return (budgetNew/reach);
+    }*/
 
-    private double impFactor(CampaignData camp, String publisher){
+   /* private double impFactor(CampaignData camp, String publisher){
         double bidFactor=1.0;
         Boolean mktSeg[]= w.splitSegment(camp.targetSegment);
         if(mktSeg[0]) //age
@@ -168,6 +269,6 @@ public class ImpressionsAuctioner {
             bidFactor=bidFactor*(100-w.publisherStats.get(publisher)[1]);
         return bidFactor;
         
-    }
+    }*/
 
 }

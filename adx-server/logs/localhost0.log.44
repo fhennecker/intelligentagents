@@ -1,0 +1,10 @@
+07/12 00:52:58 INFO file.FileDatabase|infodb: database opened as /Users/leelaprabhu/Desktop/SOUTHAMPTON/Intelligent Agents/assignment/intelligentagents/adx-server/infodb
+07/12 00:52:58 INFO common.BlockingViewerServer|viewer server started at *:4042
+07/12 00:52:59 INFO sim.Admin|adding manager for simulation type tac13adx
+07/12 00:52:59 INFO server.TACTGateway|TACT Server started at *:6502
+07/12 00:53:00 FINE sim.Admin|Entering log for simulation 91
+************************************************************
+* Entering log for simulation 91
+************************************************************
+
+

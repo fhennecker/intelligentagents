@@ -209,6 +209,9 @@ public class AdNetwork extends Agent {
         d.currCampaign = campaignData;
         initTotalPopularity(campaignData);
         genCampaignQueries(campaignData);
+        for (int i=0; i<60; i++){
+            d.impressionStats.add(new HashMap<Integer, CampaignStats>());
+        }
 
         /*************************************Open and read the camplog file*******************************************************/
         String str = null;
@@ -237,6 +240,9 @@ public class AdNetwork extends Agent {
          */
         System.out.println("Day " + w.day + ": Allocated campaign - " + campaignData);
         d.campaigns.put(initialCampaignMessage.getId(), campaignData);
+        w.initSegmentPopularity();
+        for(int i=0; i<10; i++)
+            w.updateSegmentPopularity(campaignData);
         for (int i=0; i<60;i++){
             d.campTrack.add(new ArrayList<Integer>());
             d.otherCampTrack.add(new ArrayList<Integer>());
@@ -254,6 +260,8 @@ public class AdNetwork extends Agent {
         w.day = com.getDay();
 
         d.pendingCampaign = new CampaignData(com);
+        w.updateSegmentPopularity(d.pendingCampaign);
+        
         System.out.println("Day " + w.day + ": Campaign opportunity - " + d.pendingCampaign);
         
         
@@ -263,6 +271,7 @@ public class AdNetwork extends Agent {
         System.out.println(cmpBidMillis);
         System.out.print("Won/Loss ratio on 5 days :");
         System.out.println(d.wonLossRatio(w.day, 5));
+        
         if (w.day > 5) {
         	if (d.wonLossRatio(w.day, 5) < 0.5) {
         		cmpBidMillis += (long) em.getPessimisticBid(com.getReachImps());
@@ -275,6 +284,7 @@ public class AdNetwork extends Agent {
         		cmpBidMillis = (long) com.getReachImps() / 10 + 1;
         	}
         }
+        
         // System.out.print("  - Pessimistic bid : ");
         // System.out.println(em.getPessimisticBid(com.getReachImps()));
         
@@ -302,7 +312,6 @@ public class AdNetwork extends Agent {
         sendMessage(demandAgentAddress, bids);
         d.yesterdayCampaignBid = cmpBidMillis;
     }
-	
 
 	/**
 	 * On day n ( > 0), the result of the UserClassificationService and Campaign
@@ -380,26 +389,38 @@ public class AdNetwork extends Agent {
 	/**
 	 * Campaigns performance w.r.t. each allocated campaign
 	 */
-	private void handleCampaignReport(CampaignReport campaignReport) {
-
-		campaignReports.add(campaignReport);
-
-		/*
-		 * for each campaign, the accumulated statistics from day 1 up to day
-		 * n-1 are reported
-		 */
-		for (CampaignReportKey campaignKey : campaignReport.keys()) {
-			int cmpId = campaignKey.getCampaignId();
-			CampaignStats cstats = campaignReport.getCampaignReportEntry(
-					campaignKey).getCampaignStats();
-			d.campaigns.get(cmpId).setStats(cstats);
-
-			System.out.println("Day " + w.day + ": Updating campaign " + cmpId + " stats: "
-					+ cstats.getTargetedImps() + " tgtImps "
-					+ cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
-					+ cstats.getCost());
-		}
-	}
+    private void handleCampaignReport(CampaignReport campaignReport) {
+        
+        campaignReports.add(campaignReport);
+        
+        /*
+         * for each campaign, the accumulated statistics from day 1 up to day
+         * n-1 are reported
+         */
+        for (CampaignReportKey campaignKey : campaignReport.keys()) {
+            int cmpId = campaignKey.getCampaignId();
+            CampaignStats cstats = campaignReport.getCampaignReportEntry(
+                                                                         campaignKey).getCampaignStats();
+            d.campaigns.get(cmpId).setStats(cstats);
+            
+            System.out.println("Day " + w.day + ": Updating campaign " + cmpId + " stats: "
+                               + cstats.getTargetedImps() + " tgtImps "
+                               + cstats.getOtherImps() + " nonTgtImps. Cost of imps is "
+                               + cstats.getCost());
+          //  System.out.print(">>>>>>>");
+            //System.out.print(d.impressionStats.size());
+            //System.out.println(">>>>>>>");
+            if (d.impressionStats.get(w.day-1) == null){
+                d.impressionStats.set(w.day-1, new HashMap<Integer, CampaignStats>());
+              //  System.out.print(">>>>>>>");
+               // System.out.print(d.impressionStats);
+               // System.out.println(">>>>>>>");
+                
+            }
+            d.impressionStats.get(w.day-1).put(new Integer(cmpId), cstats);
+        }
+        //ia.estimateImpCost(5);
+    }
 
 	/**
 	 * Users and Publishers statistics: popularity and ad type orientation

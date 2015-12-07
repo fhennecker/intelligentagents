@@ -1,0 +1,15 @@
+02/12 22:05:39 INFO file.FileDatabase|infodb: database opened as /Users/leelaprabhu/Desktop/SOUTHAMPTON/Intelligent Agents/assignment/adx-server/infodb
+02/12 22:05:39 INFO common.BlockingViewerServer|viewer server started at *:4042
+02/12 22:05:40 INFO sim.Admin|adding manager for simulation type tac13adx
+02/12 22:05:40 INFO server.TACTGateway|TACT Server started at *:6502
+02/12 22:05:45 WARNING server.TACTChannel|could not login user trial1
+java.lang.IllegalArgumentException: No user with name 'trial1' found
+	at se.sics.tasim.sim.Admin.loginAgentChannel(Admin.java:1443)
+	at se.sics.tasim.sim.AgentChannel.init(AgentChannel.java:63)
+	at se.sics.tasim.sim.Gateway.loginAgentChannel(Gateway.java:81)
+	at se.sics.tasim.sim.server.TACTGateway.loginAgentChannel(TACTGateway.java:193)
+	at se.sics.tasim.sim.server.TACTChannel.deliverFromAgent(TACTChannel.java:267)
+	at se.sics.tasim.sim.server.TACTChannel.dataRead(TACTChannel.java:181)
+	at se.sics.tasim.sim.server.TACTChannel.access$1(TACTChannel.java:175)
+	at se.sics.tasim.sim.server.TACTChannel$1.dataRead(TACTChannel.java:84)
+	at se.sics.isl.tact.TACTConnection$TACTReader.run(TACTConnection.java:414)

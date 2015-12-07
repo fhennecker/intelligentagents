@@ -1,0 +1,20 @@
+03/12 02:04:19 INFO file.FileDatabase|infodb: database opened as /Users/leelaprabhu/Desktop/SOUTHAMPTON/Intelligent Agents/assignment/adx-server/infodb
+03/12 02:04:19 INFO common.BlockingViewerServer|viewer server started at *:4042
+03/12 02:04:20 INFO sim.Admin|adding manager for simulation type tac13adx
+03/12 02:04:21 INFO server.TACTGateway|TACT Server started at *:6502
+03/12 02:04:24 INFO server.TACTChannel|user ibm logged in as ibm@tact-1 with version 0.9.6 from 127.0.0.1
+03/12 02:04:24 INFO sim.Admin|created simulation 32
+03/12 02:04:25 INFO server.TACTChannel|user trial1 logged in as trial1@tact-2 with version 0.9.6 from 127.0.0.1
+03/12 02:05:00 FINE sim.Admin|Entering log for simulation 28
+************************************************************
+* Entering log for simulation 28
+************************************************************
+
+
+03/12 02:15:01 INFO is.TACAAResultManager|generating results for simulation 28 to public_html/localhost/history/28/index.html
+03/12 02:16:00 FINE sim.Admin|Entering log for simulation 29
+************************************************************
+* Entering log for simulation 29
+************************************************************
+
+

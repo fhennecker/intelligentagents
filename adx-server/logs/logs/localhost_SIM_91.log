@@ -1,0 +1,52 @@
+07/12 00:53:00 FINE sim.Admin|Log for simulation 91 started
+************************************************************
+* Log for simulation 91 started
+************************************************************
+
+
+07/12 00:53:00 INFO sim.TACAdxSimulation|TACAA Simulation 91 is setting up...
+07/12 00:53:00 INFO sim.TACAdxSimulation|Created Adx Agent
+07/12 00:53:00 INFO sim.TACAdxSimulation|Created Demand Agent
+07/12 00:53:00 FINE generators.PopulationUserGenerator|Generated 10000 tau.tac.adx.users.AdxUsers
+07/12 00:53:00 FINE sim.ExternalAgent|sample setup with address adv1
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork simulationSetup
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-2 simulationSetup
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-3 simulationSetup
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-4 simulationSetup
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-5 simulationSetup
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-6 simulationSetup
+07/12 00:53:00 FINE agents.SampleAdNetwork|AdNet DummyAdnetwork-7 simulationSetup
+07/12 00:53:00 INFO publisher.AdxPublisherReportManagerImpl|AdxQueryReportManager created.
+07/12 00:53:00 INFO adn.AdNetworkReportManagerImpl|AdxQueryReportManager created.
+07/12 00:53:00 INFO agents.DemandAgent|setting up...
+07/12 00:53:00 FINE agents.DemandAgent|Finished setup
+07/12 00:53:01 INFO sim.Simulation|***** START OF TIME 0 *****
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=293908177, reachImps=5590, dayStart=1, dayEnd=5, targetSegment=[FEMALE, YOUNG], videoCoef=2.211318880248715, mobileCoef=1.9341275660213768, budgetMillis=5590, advertiser=adv1]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@23bbf22b
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=438759880, reachImps=1932, dayStart=1, dayEnd=5, targetSegment=[HIGH_INCOME, YOUNG], videoCoef=2.258042968168138, mobileCoef=2.1877012115188084, budgetMillis=1932, advertiser=DummyAdnetwork]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@4f0dc1c4
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1359203424, reachImps=3037, dayStart=1, dayEnd=5, targetSegment=[OLD, HIGH_INCOME], videoCoef=2.8638985315568823, mobileCoef=1.8624006536737574, budgetMillis=3037, advertiser=DummyAdnetwork-2]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@2dd556c1
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=13650434, reachImps=5590, dayStart=1, dayEnd=5, targetSegment=[FEMALE, YOUNG], videoCoef=2.5287588474130662, mobileCoef=1.9207262326632475, budgetMillis=5590, advertiser=DummyAdnetwork-3]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@2172b83d
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1859981503, reachImps=5590, dayStart=1, dayEnd=5, targetSegment=[FEMALE, YOUNG], videoCoef=2.9951598411459246, mobileCoef=2.02263008920803, budgetMillis=5590, advertiser=DummyAdnetwork-4]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@693930fb
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1807476612, reachImps=6507, dayStart=1, dayEnd=5, targetSegment=[OLD, MALE], videoCoef=2.293161297217569, mobileCoef=1.7579670415323905, budgetMillis=6507, advertiser=DummyAdnetwork-5]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@5fbc099e
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1508024894, reachImps=10490, dayStart=1, dayEnd=5, targetSegment=[OLD, LOW_INCOME], videoCoef=2.3839944512966404, mobileCoef=1.989321764064538, budgetMillis=10490, advertiser=DummyAdnetwork-6]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@79fcef11
+07/12 00:53:01 FINE agents.DemandAgent|Allocating initial campaign : CampaignImpl [id=1305452653, reachImps=3312, dayStart=1, dayEnd=5, targetSegment=[MALE, HIGH_INCOME], videoCoef=2.0504937886351184, mobileCoef=1.7175928827285933, budgetMillis=3312, advertiser=DummyAdnetwork-7]
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@7200b0b3
+07/12 00:53:01 SEVERE agents.DemandAgent|DeadEvent - source: com.google.common.eventbus.EventBus@e720c41 event: tau.tac.adx.messages.UserClassificationServiceNotification@3e3f0f9f
+07/12 00:53:01 INFO agents.DemandAgent|Day 0 :Notifying new campaign opportunity: CampaignImpl [id=539355950, reachImps=18155, dayStart=2, dayEnd=11, targetSegment=[MALE, LOW_INCOME], videoCoef=2.7610140394670073, mobileCoef=2.039999003615783, budgetMillis=0, advertiser=null]
+07/12 00:53:01 INFO sim.Simulation|***** START OF TIME 0 COMPLETE *****
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork : UCS Bid: 0.17753497512331634 Cmp ID: 539355950 Cmp Bid: 1601
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-2 : UCS Bid: 0.16112517125658438 Cmp ID: 539355950 Cmp Bid: 6205
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-3 : UCS Bid: 0.18993050188345947 Cmp ID: 539355950 Cmp Bid: 5077
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-4 : UCS Bid: 0.1832761377943311 Cmp ID: 539355950 Cmp Bid: 2002
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-5 : UCS Bid: 0.13387092259636615 Cmp ID: 539355950 Cmp Bid: 2652
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-6 : UCS Bid: 0.17438405538901686 Cmp ID: 539355950 Cmp Bid: 4242
+07/12 00:53:01 FINE agents.DemandAgent|Day 0 :Got AdNetBidMessage from DummyAdnetwork-7 : UCS Bid: 0.10433775495383454 Cmp ID: 539355950 Cmp Bid: 12721
+07/12 00:53:05 WARNING sim.TACAdxSimulation|recovering agent sample
+07/12 00:53:05 INFO server.TACTChannel|user sample logged in as sample@tact-1 with version 0.9.6 from 127.0.0.1
+07/12 00:53:08 SEVERE tact.TACTConnection|sample@tact-1: closed from other side
