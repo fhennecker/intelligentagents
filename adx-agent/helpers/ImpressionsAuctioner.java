@@ -117,7 +117,7 @@ public class ImpressionsAuctioner {
                         totalPrice=totalPrice+factor*rbid;
                         totalFactor=totalFactor+factor;
                         
-                        d.bidBundle.addQuery(query, 1, new Ad(null),
+                        d.bidBundle.addQuery(query, 10000, new Ad(null),
                                 d.currCampaign.id, 1);
                         //int weight=(int)Math.ceil(d.currCampaign.budget/d.currCampaign.reachImps*Math.pow(d.currCampaign.impsTogo()/(d.currCampaign.dayEnd-dayBiddingFor+1),2.0));
                         //d.bidBundle.getEntry(query).setWeight(weight);

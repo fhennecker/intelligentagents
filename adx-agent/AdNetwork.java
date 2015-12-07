@@ -263,19 +263,7 @@ public class AdNetwork extends Agent {
         System.out.println(cmpBidMillis);
         System.out.print("Won/Loss ratio on 5 days :");
         System.out.println(d.wonLossRatio(w.day, 5));
-        if (w.day > 5) {
-        	double wl = d.wonLossRatio(w.day, 5);
-        	if (wl < 0.5) {
-        		cmpBidMillis = (long) em.getPessimisticBid(com.getReachImps(), 1-wl);
-        	}
-        	else {
-        		cmpBidMillis = (long) em.getOptimisticBid(com.getReachImps(), 0.5);
-        	}
-        	cmpBidMillis /= 2; // average between EM's bid and our bid
-        	if (cmpBidMillis < com.getReachImps() / 10 + 1){
-        		cmpBidMillis = (long) com.getReachImps() / 10 + 1;
-        	}
-        }
+        
         // System.out.print("  - Pessimistic bid : ");
         // System.out.println(em.getPessimisticBid(com.getReachImps()));
         
